@@ -18,6 +18,11 @@ const DANGEROUS_CAPABILITY_PATTERNS: { pattern: RegExp; label: string }[] = [
   { pattern: /\bwrite\b.*\bfile\b/i, label: "filesystem write access" },
 ];
 
+// Zero-width spaces/joiners, bidirectional overrides, word joiner, BOM — characters
+// that render invisibly but are still read by the model, a common way to smuggle
+// instructions past a human reviewer.
+const HIDDEN_CHAR_PATTERN = /[\u200B-\u200F\u202A-\u202E\u2060-\u2064\uFEFF]/;
+
 function scanText(text: string, patterns: { pattern: RegExp; label: string }[]): string[] {
   const hits = new Set<string>();
   for (const { pattern, label } of patterns) {
@@ -26,20 +31,63 @@ function scanText(text: string, patterns: { pattern: RegExp; label: string }[]):
   return [...hits];
 }
 
-function analyzeTool(tool: Tool): Finding[] {
+// Runs injection heuristics over a single piece of model-facing text (a tool
+// description, a parameter description, or the server's instructions).
+function injectionFindings(location: string, text: string): Finding[] {
   const findings: Finding[] = [];
-  const haystack = `${tool.description ?? ""}`;
+  if (!text) return findings;
 
-  const injectionHits = scanText(haystack, PROMPT_INJECTION_PATTERNS);
+  const injectionHits = scanText(text, PROMPT_INJECTION_PATTERNS);
   if (injectionHits.length > 0) {
     findings.push({
       severity: "high",
-      title: `Tool "${tool.name}" description contains suspicious instruction-like text`,
-      detail: `Matched: ${injectionHits.join(", ")}. This could be a prompt-injection vector targeting the LLM reading this description.`,
+      title: `${location} contains suspicious instruction-like text`,
+      detail: `Matched: ${injectionHits.join(", ")}. This could be a prompt-injection vector targeting the LLM reading it.`,
     });
   }
 
-  const dangerHits = scanText(`${tool.name} ${haystack}`, DANGEROUS_CAPABILITY_PATTERNS);
+  if (HIDDEN_CHAR_PATTERN.test(text)) {
+    findings.push({
+      severity: "high",
+      title: `${location} contains hidden/invisible characters`,
+      detail:
+        "Zero-width or bidirectional-override characters can hide instructions from a human reviewer while remaining visible to the model.",
+    });
+  }
+
+  return findings;
+}
+
+// Pulls the human/model-readable description out of each declared parameter so it
+// can be scanned the same way a tool description is — parameter descriptions are
+// injected into the model's context too.
+function paramDescriptions(tool: Tool): { name: string; description: string }[] {
+  const properties = tool.inputSchema?.properties;
+  if (!properties || typeof properties !== "object") return [];
+
+  const out: { name: string; description: string }[] = [];
+  for (const [name, schema] of Object.entries(properties)) {
+    if (schema && typeof schema === "object" && "description" in schema) {
+      const description = (schema as { description?: unknown }).description;
+      if (typeof description === "string") out.push({ name, description });
+    }
+  }
+  return out;
+}
+
+function analyzeTool(tool: Tool): Finding[] {
+  const findings: Finding[] = [];
+  const description = tool.description ?? "";
+
+  findings.push(...injectionFindings(`Tool "${tool.name}" description`, description));
+
+  for (const param of paramDescriptions(tool)) {
+    findings.push(
+      ...injectionFindings(`Tool "${tool.name}" parameter "${param.name}" description`, param.description),
+    );
+  }
+
+  const dangerHits = scanText(`${tool.name} ${description}`, DANGEROUS_CAPABILITY_PATTERNS);
   if (dangerHits.length > 0) {
     findings.push({
       severity: "medium",
@@ -74,6 +122,14 @@ export async function checkSecurity(
 
   const findings = tools.flatMap(analyzeTool);
 
+  // The server's instructions are injected into the model's context at connection
+  // time, before any tool is even selected, so injection here is at least as
+  // dangerous as in a tool description.
+  const instructions = ctx.client.getInstructions();
+  if (instructions) {
+    findings.push(...injectionFindings("Server instructions", instructions));
+  }
+
   if (ctx.url.protocol === "http:") {
     findings.push({
       severity: "high",
@@ -94,7 +150,7 @@ export async function checkSecurity(
     status: findings.length === 0 ? "ok" : highest === "high" || highest === "critical" ? "error" : "warning",
     summary:
       findings.length === 0
-        ? "No obvious red flags detected in tool descriptions or transport."
+        ? "No obvious red flags detected in tool descriptions, parameters, instructions, or transport."
         : `${findings.length} finding(s) detected.`,
     findings,
   };
