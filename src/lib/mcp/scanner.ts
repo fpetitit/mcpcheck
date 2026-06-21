@@ -9,6 +9,7 @@ import { checkSecurity } from "../checks/security";
 import { checkNetwork } from "../checks/network";
 import { checkLicense } from "../checks/license";
 import { checkContextFootprint } from "../checks/contextFootprint";
+import { checkSchemaQuality } from "../checks/schemaQuality";
 import { computeScore } from "./score";
 
 export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
@@ -31,12 +32,22 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     checkLicense(ctx),
   ]);
   const contextFootprint = checkContextFootprint(tools, resources, resourceTemplates, prompts);
+  const schemaQuality = checkSchemaQuality(tools);
 
   if (ctx.client) {
     await ctx.client.close().catch(() => undefined);
   }
 
-  const checks = [connectivity, protocolVersion, inventory, security, network, license, contextFootprint];
+  const checks = [
+    connectivity,
+    protocolVersion,
+    inventory,
+    security,
+    network,
+    license,
+    contextFootprint,
+    schemaQuality,
+  ];
   const score = computeScore(checks);
 
   return {
