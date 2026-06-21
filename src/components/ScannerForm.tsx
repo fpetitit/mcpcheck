@@ -53,6 +53,10 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
     runScan(exampleUrl);
   }
 
+  function handleSelfScan() {
+    handleExampleClick(`${window.location.origin}/api/mcp`);
+  }
+
   return (
     <div className="flex w-full max-w-4xl flex-col gap-8">
       <form onSubmit={handleSubmit} className="flex w-full gap-2">
@@ -90,6 +94,15 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
               {server.name}
             </button>
           ))}
+          <button
+            type="button"
+            title="Scan MCPCheckup's own MCP server, eating its own dog food."
+            disabled={loading}
+            onClick={handleSelfScan}
+            className="rounded border border-[#ff8c00]/60 px-3 py-1.5 text-xs font-medium text-[#ff8c00] transition-colors hover:border-[#ff8c00] hover:bg-[#ff8c00]/10 hover:shadow-[0_0_6px_rgba(255,140,0,0.4)] disabled:opacity-50"
+          >
+            Scan MCPCheckup itself
+          </button>
         </div>
       </div>
 
