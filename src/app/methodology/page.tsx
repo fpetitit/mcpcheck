@@ -138,13 +138,14 @@ const CHECKS: CheckDoc[] = [
   },
   {
     id: "license",
-    title: "License Information",
+    title: "Usage Terms & Licensing",
     axis: "Governance",
     summary: "Are the usage terms for this server published anywhere?",
     details: [
-      "Probes common license file locations (`/LICENSE`, `/LICENSE.md`, `/LICENSE.txt`, `/.well-known/security.txt`).",
-      "Also checks whether the server's connection-time instructions mention a license.",
-      "This is informational: it doesn't penalize a missing license heavily, but flags that usage terms are unclear.",
+      "A remote MCP server is a hosted service, not a GitHub repo, so a LICENSE file at the domain root (a source-repo convention) is rarely the right signal. This check treats a LICENSE file, a Terms of Service page, and a Privacy Policy page as equally valid evidence that usage terms exist, probing common paths for each (`/LICENSE`, `/terms`, `/privacy`, etc.).",
+      "Also checks whether the server's connection-time instructions mention a license, terms of service, or privacy policy.",
+      "Separately checks for a `/.well-known/security.txt` vulnerability disclosure policy, which gives security researchers a clear way to report issues responsibly.",
+      "Both findings are informational: missing usage terms or a missing security.txt don't heavily penalize the score, but are flagged as unclear/missing governance signals.",
     ],
   },
 ];
