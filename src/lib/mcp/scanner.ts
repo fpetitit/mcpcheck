@@ -10,6 +10,8 @@ import { checkNetwork } from "../checks/network";
 import { checkLicense } from "../checks/license";
 import { checkContextFootprint } from "../checks/contextFootprint";
 import { checkSchemaQuality } from "../checks/schemaQuality";
+import { checkHistory } from "../checks/history";
+import { getPreviousScan, saveScan } from "../history/store";
 import { computeScore } from "./score";
 
 export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
@@ -17,6 +19,7 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
   const url = new URL(rawUrl);
   await assertPublicTarget(url);
 
+  const previousScan = await getPreviousScan(url.toString());
   const ctx = await connectToServer(url);
 
   const connectivity = await checkConnectivity(ctx);
@@ -38,7 +41,7 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     await ctx.client.close().catch(() => undefined);
   }
 
-  const checks = [
+  const scoredChecks = [
     connectivity,
     protocolVersion,
     inventory,
@@ -48,9 +51,12 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     contextFootprint,
     schemaQuality,
   ];
+  const preliminaryScore = computeScore(scoredChecks);
+  const history = checkHistory(previousScan, tools, preliminaryScore.value);
+  const checks = [...scoredChecks, history];
   const score = computeScore(checks);
 
-  return {
+  const result: ScanResult = {
     target: url.toString(),
     startedAt,
     finishedAt: new Date().toISOString(),
@@ -59,4 +65,8 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     grade: score.grade,
     axes: score.axes,
   };
+
+  await saveScan(result);
+
+  return result;
 }
