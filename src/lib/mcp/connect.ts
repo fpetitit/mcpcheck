@@ -14,38 +14,51 @@ function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise
   ]);
 }
 
+function getNegotiatedProtocolVersion(
+  transport: StreamableHTTPClientTransport | SSEClientTransport,
+): string | null {
+  if (transport instanceof StreamableHTTPClientTransport) {
+    return transport.protocolVersion ?? null;
+  }
+  // SSEClientTransport stores it on a non-public field; there is no public getter.
+  return (transport as unknown as { _protocolVersion?: string })._protocolVersion ?? null;
+}
+
 async function tryConnect(
-  url: URL,
   makeTransport: () => StreamableHTTPClientTransport | SSEClientTransport,
-): Promise<Client> {
+): Promise<{ client: Client; protocolVersion: string | null }> {
   const client = new Client({ name: "mcpcheck", version: "0.1.0" });
   const transport = makeTransport();
   await withTimeout(client.connect(transport), CONNECT_TIMEOUT_MS, "MCP handshake");
-  return client;
+  return { client, protocolVersion: getNegotiatedProtocolVersion(transport) };
 }
 
 export async function connectToServer(url: URL): Promise<ScanContext> {
   const start = Date.now();
 
   try {
-    const client = await tryConnect(url, () => new StreamableHTTPClientTransport(url));
+    const { client, protocolVersion } = await tryConnect(
+      () => new StreamableHTTPClientTransport(url),
+    );
     return {
       url,
       client,
       connectError: null,
       transportKind: "streamable-http",
       handshakeMs: Date.now() - start,
+      protocolVersion,
     };
   } catch (streamableError) {
     try {
       const sseStart = Date.now();
-      const client = await tryConnect(url, () => new SSEClientTransport(url));
+      const { client, protocolVersion } = await tryConnect(() => new SSEClientTransport(url));
       return {
         url,
         client,
         connectError: null,
         transportKind: "sse",
         handshakeMs: Date.now() - sseStart,
+        protocolVersion,
       };
     } catch (sseError) {
       const message =
@@ -57,6 +70,7 @@ export async function connectToServer(url: URL): Promise<ScanContext> {
         connectError: `Streamable HTTP: ${message}; SSE: ${sseMessage}`,
         transportKind: null,
         handshakeMs: null,
+        protocolVersion: null,
       };
     }
   }

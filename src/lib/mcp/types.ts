@@ -30,4 +30,5 @@ export interface ScanContext {
   connectError: string | null;
   transportKind: "streamable-http" | "sse" | null;
   handshakeMs: number | null;
+  protocolVersion: string | null;
 }
