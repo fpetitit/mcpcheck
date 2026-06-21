@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { scanMcpServer } from "@/lib/mcp/scanner";
 import { gradeColor } from "@/lib/mcp/gradeColor";
 import { ScorecardShare } from "@/components/ScorecardShare";
+import { AxisRadar } from "@/components/AxisRadar";
 
 type Props = {
   searchParams: Promise<{ url?: string }>;
@@ -109,6 +110,8 @@ export default async function ScorecardPage({ searchParams }: Props) {
           <span>{counts.error} error</span>
           <span>{counts.skipped} skipped</span>
         </div>
+
+        <AxisRadar axes={result.axes} color={color} />
 
         <Link
           href={`/?url=${encodeURIComponent(url)}`}

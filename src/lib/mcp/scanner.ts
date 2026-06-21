@@ -41,5 +41,6 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     checks,
     score: score.value,
     grade: score.grade,
+    axes: score.axes,
   };
 }
