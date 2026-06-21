@@ -2,9 +2,18 @@ import type { CheckResult, ScanResult, Severity } from "./types";
 
 export type Grade = "A" | "B" | "C" | "D" | "F";
 
+export type Axis = "security" | "reliability" | "governance";
+
+export interface AxisScore {
+  axis: Axis;
+  label: string;
+  value: number;
+}
+
 export interface Score {
   value: number;
   grade: Grade;
+  axes: AxisScore[];
 }
 
 const FINDING_PENALTY: Record<Severity, number> = {
@@ -22,6 +31,27 @@ const STATUS_PENALTY: Record<CheckResult["status"], number> = {
   skipped: 0,
 };
 
+const AXIS_FOR_CHECK: Record<string, Axis> = {
+  security: "security",
+  network: "security",
+  connectivity: "reliability",
+  "protocol-version": "reliability",
+  inventory: "reliability",
+  license: "governance",
+};
+
+const AXIS_LABELS: Record<Axis, string> = {
+  security: "Security",
+  reliability: "Reliability",
+  governance: "Governance",
+};
+
+const AXIS_WEIGHTS: Record<Axis, number> = {
+  security: 0.5,
+  reliability: 0.3,
+  governance: 0.2,
+};
+
 function gradeFor(value: number): Grade {
   if (value >= 90) return "A";
   if (value >= 75) return "B";
@@ -30,7 +60,7 @@ function gradeFor(value: number): Grade {
   return "F";
 }
 
-export function computeScore(checks: ScanResult["checks"]): Score {
+function scoreForChecks(checks: CheckResult[]): number {
   let penalty = 0;
   for (const check of checks) {
     penalty += STATUS_PENALTY[check.status];
@@ -38,7 +68,23 @@ export function computeScore(checks: ScanResult["checks"]): Score {
       penalty += FINDING_PENALTY[finding.severity];
     }
   }
+  return Math.max(0, Math.min(100, Math.round(100 - penalty)));
+}
 
-  const value = Math.max(0, Math.min(100, Math.round(100 - penalty)));
-  return { value, grade: gradeFor(value) };
+export function computeScore(checks: ScanResult["checks"]): Score {
+  const checksByAxis = new Map<Axis, CheckResult[]>();
+  for (const check of checks) {
+    const axis = AXIS_FOR_CHECK[check.id];
+    if (!axis) continue;
+    checksByAxis.set(axis, [...(checksByAxis.get(axis) ?? []), check]);
+  }
+
+  const axes: AxisScore[] = (Object.keys(AXIS_WEIGHTS) as Axis[]).map((axis) => ({
+    axis,
+    label: AXIS_LABELS[axis],
+    value: scoreForChecks(checksByAxis.get(axis) ?? []),
+  }));
+
+  const value = Math.round(axes.reduce((sum, a) => sum + a.value * AXIS_WEIGHTS[a.axis], 0));
+  return { value, grade: gradeFor(value), axes };
 }

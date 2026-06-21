@@ -6,6 +6,7 @@ import type { ScanResult } from "@/lib/mcp/types";
 import { EXAMPLE_SERVERS } from "@/lib/exampleServers";
 import { gradeColor } from "@/lib/mcp/gradeColor";
 import { CheckCard } from "./CheckCard";
+import { AxisRadar } from "./AxisRadar";
 
 export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
   const [url, setUrl] = useState(initialUrl ?? "");
@@ -119,6 +120,12 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
                 Get shareable scorecard &rarr;
               </Link>
             </div>
+          </div>
+          <div className="flex flex-col items-center gap-2 rounded border border-[#1a4d1a] bg-black p-4">
+            <p className="text-xs font-medium uppercase tracking-wide text-[#39ff14]/50">
+              $ score breakdown by axis
+            </p>
+            <AxisRadar axes={result.axes} color={gradeColor(result.grade)} />
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {result.checks.map((check) => (

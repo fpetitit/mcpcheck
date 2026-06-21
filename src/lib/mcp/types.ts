@@ -24,6 +24,7 @@ export interface ScanResult {
   checks: CheckResult[];
   score: number;
   grade: "A" | "B" | "C" | "D" | "F";
+  axes: import("./score").AxisScore[];
 }
 
 export interface ScanContext {
