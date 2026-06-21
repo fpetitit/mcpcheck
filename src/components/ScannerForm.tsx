@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { ScanResult } from "@/lib/mcp/types";
 import { EXAMPLE_SERVERS } from "@/lib/exampleServers";
+import { gradeColor } from "@/lib/mcp/gradeColor";
 import { CheckCard } from "./CheckCard";
 
 export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
@@ -98,10 +100,26 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
 
       {result && (
         <div className="flex flex-col gap-4">
-          <p className="text-sm text-[#39ff14]/60">
-            Scanned <span className="text-[#39ff14]">{result.target}</span> in{" "}
-            {new Date(result.finishedAt).getTime() - new Date(result.startedAt).getTime()}ms
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-[#39ff14]/60">
+              Scanned <span className="text-[#39ff14]">{result.target}</span> in{" "}
+              {new Date(result.finishedAt).getTime() - new Date(result.startedAt).getTime()}ms
+            </p>
+            <div className="flex items-center gap-3">
+              <span
+                className="rounded border px-3 py-1 text-sm font-bold"
+                style={{ borderColor: gradeColor(result.grade), color: gradeColor(result.grade) }}
+              >
+                {result.grade} &middot; {result.score}/100
+              </span>
+              <Link
+                href={`/scorecard?url=${encodeURIComponent(result.target)}`}
+                className="rounded border border-[#ff8c00] px-3 py-1.5 text-xs font-bold text-[#ff8c00] transition-colors hover:bg-[#ff8c00] hover:text-black"
+              >
+                Get shareable scorecard &rarr;
+              </Link>
+            </div>
+          </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {result.checks.map((check) => (
               <CheckCard key={check.id} check={check} />

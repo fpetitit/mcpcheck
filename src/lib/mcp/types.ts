@@ -22,6 +22,8 @@ export interface ScanResult {
   startedAt: string;
   finishedAt: string;
   checks: CheckResult[];
+  score: number;
+  grade: "A" | "B" | "C" | "D" | "F";
 }
 
 export interface ScanContext {
