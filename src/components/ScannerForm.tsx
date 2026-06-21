@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ScanResult } from "@/lib/mcp/types";
 import { EXAMPLE_SERVERS } from "@/lib/exampleServers";
 import { CheckCard } from "./CheckCard";
 
-export function ScannerForm() {
-  const [url, setUrl] = useState("");
+export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
+  const [url, setUrl] = useState(initialUrl ?? "");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (initialUrl) {
+      runScan(initialUrl);
+    }
+  }, [initialUrl]);
 
   async function runScan(targetUrl: string) {
     setLoading(true);
