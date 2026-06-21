@@ -34,6 +34,7 @@ const STATUS_PENALTY: Record<CheckResult["status"], number> = {
 const AXIS_FOR_CHECK: Record<string, Axis> = {
   security: "security",
   network: "security",
+  history: "security",
   connectivity: "reliability",
   "protocol-version": "reliability",
   inventory: "reliability",
