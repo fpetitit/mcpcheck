@@ -2,7 +2,7 @@ import type { CheckResult, ScanResult, Severity } from "./types";
 
 export type Grade = "A" | "B" | "C" | "D" | "F";
 
-export type Axis = "security" | "reliability" | "governance";
+export type Axis = "security" | "reliability" | "ergonomics" | "governance";
 
 export interface AxisScore {
   axis: Axis;
@@ -37,19 +37,22 @@ const AXIS_FOR_CHECK: Record<string, Axis> = {
   connectivity: "reliability",
   "protocol-version": "reliability",
   inventory: "reliability",
+  "context-footprint": "ergonomics",
   license: "governance",
 };
 
 const AXIS_LABELS: Record<Axis, string> = {
   security: "Security",
   reliability: "Reliability",
+  ergonomics: "Agent Ergonomics",
   governance: "Governance",
 };
 
 const AXIS_WEIGHTS: Record<Axis, number> = {
-  security: 0.5,
-  reliability: 0.3,
-  governance: 0.2,
+  security: 0.45,
+  reliability: 0.25,
+  ergonomics: 0.2,
+  governance: 0.1,
 };
 
 function gradeFor(value: number): Grade {
