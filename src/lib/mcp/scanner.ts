@@ -3,6 +3,7 @@ import { connectToServer } from "./connect";
 import { assertPublicTarget } from "./ssrfGuard";
 import type { ScanResult } from "./types";
 import { checkConnectivity } from "../checks/connectivity";
+import { checkProtocolVersion } from "../checks/protocolVersion";
 import { checkInventory } from "../checks/inventory";
 import { checkSecurity } from "../checks/security";
 import { checkNetwork } from "../checks/network";
@@ -18,7 +19,8 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
   const connectivity = await checkConnectivity(ctx);
   const inventory = await checkInventory(ctx);
   const tools = (inventory.data?.tools as Tool[] | undefined) ?? [];
-  const [security, network, license] = await Promise.all([
+  const [protocolVersion, security, network, license] = await Promise.all([
+    checkProtocolVersion(ctx),
     checkSecurity(ctx, tools),
     checkNetwork(ctx),
     checkLicense(ctx),
@@ -32,6 +34,6 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     target: url.toString(),
     startedAt,
     finishedAt: new Date().toISOString(),
-    checks: [connectivity, inventory, security, network, license],
+    checks: [connectivity, protocolVersion, inventory, security, network, license],
   };
 }
