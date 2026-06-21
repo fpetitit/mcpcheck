@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.fpetitit/mcpcheckup",
-  "description": "MCPCheckup scans remote MCP servers for handshake/protocol issues, tool/resource/prompt inventory, security heuristics, network/TLS posture, and license info. This server exposes the same scan and scorecard functionality as MCP tools.",
+  "description": "Scans remote MCP servers for protocol, security, and TLS issues; exposes scan tools via MCP.",
   "version": "0.1.0",
   "repository": {
     "url": "https://github.com/fpetitit/mcpcheck",
