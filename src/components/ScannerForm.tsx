@@ -53,20 +53,20 @@ export function ScannerForm() {
           placeholder="https://example.com/mcp"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 rounded-lg border border-zinc-300 px-4 py-3 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900"
+          className="flex-1 rounded border border-[#1a4d1a] bg-black px-4 py-3 font-mono text-sm text-[#39ff14] outline-none placeholder:text-[#39ff14]/40 focus:border-[#39ff14] focus:shadow-[0_0_8px_rgba(57,255,20,0.4)]"
         />
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-zinc-900 px-6 py-3 text-sm font-medium text-white disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900"
+          className="rounded border border-[#ff8c00] bg-black px-6 py-3 text-sm font-bold text-[#ff8c00] transition-colors hover:bg-[#ff8c00] hover:text-black disabled:opacity-50"
         >
           {loading ? "Scanning…" : "Scan"}
         </button>
       </form>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">
-          Try a known public MCP server
+        <p className="text-xs font-medium uppercase tracking-wide text-[#39ff14]/50">
+          $ try a known public MCP server
         </p>
         <div className="flex flex-wrap gap-2">
           {EXAMPLE_SERVERS.map((server) => (
@@ -76,7 +76,7 @@ export function ScannerForm() {
               title={server.description}
               disabled={loading}
               onClick={() => handleExampleClick(server.url)}
-              className="rounded-full border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-700 transition-colors hover:border-zinc-500 hover:bg-zinc-100 disabled:opacity-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+              className="rounded border border-[#39ff14]/40 px-3 py-1.5 text-xs font-medium text-[#39ff14] transition-colors hover:border-[#39ff14] hover:bg-[#39ff14]/10 hover:shadow-[0_0_6px_rgba(57,255,20,0.4)] disabled:opacity-50"
             >
               {server.name}
             </button>
@@ -85,15 +85,15 @@ export function ScannerForm() {
       </div>
 
       {error && (
-        <p className="rounded-lg bg-red-50 p-4 text-sm text-red-700 dark:bg-red-950/40 dark:text-red-300">
+        <p className="rounded border border-[#ff8c00] bg-black p-4 text-sm text-[#ff8c00]">
           {error}
         </p>
       )}
 
       {result && (
         <div className="flex flex-col gap-4">
-          <p className="text-sm text-zinc-500">
-            Scanned <span className="font-mono">{result.target}</span> in{" "}
+          <p className="text-sm text-[#39ff14]/60">
+            Scanned <span className="text-[#39ff14]">{result.target}</span> in{" "}
             {new Date(result.finishedAt).getTime() - new Date(result.startedAt).getTime()}ms
           </p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
