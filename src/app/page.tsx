@@ -25,6 +25,12 @@ export default async function Home({
         >
           $ browse public MCP servers directory &rarr;
         </Link>
+        <Link
+          href="/methodology"
+          className="text-xs font-medium text-[#ff8c00] underline-offset-4 hover:underline"
+        >
+          $ how scoring works &rarr;
+        </Link>
       </div>
       <div className="mt-10 w-full max-w-4xl">
         <ScannerForm initialUrl={url} />
