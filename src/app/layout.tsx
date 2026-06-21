@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "mcpcheck",
+  title: "MCPCheckup",
   description: "Inspect and scan remote MCP servers.",
 };
 
