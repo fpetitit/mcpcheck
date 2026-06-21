@@ -38,6 +38,7 @@ const AXIS_FOR_CHECK: Record<string, Axis> = {
   "protocol-version": "reliability",
   inventory: "reliability",
   "context-footprint": "ergonomics",
+  "schema-quality": "ergonomics",
   license: "governance",
 };
 
