@@ -8,6 +8,7 @@ import { checkInventory } from "../checks/inventory";
 import { checkSecurity } from "../checks/security";
 import { checkNetwork } from "../checks/network";
 import { checkLicense } from "../checks/license";
+import { computeScore } from "./score";
 
 export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
   const startedAt = new Date().toISOString();
@@ -30,10 +31,15 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     await ctx.client.close().catch(() => undefined);
   }
 
+  const checks = [connectivity, protocolVersion, inventory, security, network, license];
+  const score = computeScore(checks);
+
   return {
     target: url.toString(),
     startedAt,
     finishedAt: new Date().toISOString(),
-    checks: [connectivity, protocolVersion, inventory, security, network, license],
+    checks,
+    score: score.value,
+    grade: score.grade,
   };
 }
