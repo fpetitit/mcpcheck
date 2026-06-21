@@ -29,6 +29,13 @@ export default async function Home({
       <div className="mt-10 w-full max-w-4xl">
         <ScannerForm initialUrl={url} />
       </div>
+
+      <p className="mt-16 max-w-xl text-center text-xs text-[#39ff14]/40">
+        $ MCPCheckup is itself an MCP server &mdash; point an MCP client at{" "}
+        <code className="text-[#39ff14]/70">/api/mcp</code> to call{" "}
+        <code className="text-[#39ff14]/70">scan_mcp_server</code> and{" "}
+        <code className="text-[#39ff14]/70">create_scorecard</code> as tools.
+      </p>
     </div>
   );
 }
