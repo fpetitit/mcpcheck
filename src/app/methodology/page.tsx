@@ -148,6 +148,17 @@ const CHECKS: CheckDoc[] = [
       "Both findings are informational: missing usage terms or a missing security.txt don't heavily penalize the score, but are flagged as unclear/missing governance signals.",
     ],
   },
+  {
+    id: "monetization",
+    title: "Monetization Signals (x402)",
+    axis: "Governance",
+    summary: "Does the server document a pay-per-call model (e.g. the x402 protocol)?",
+    details: [
+      "MCPCheckup never invokes a server's tools, so it can never observe an actual HTTP 402 response. This check instead looks for the server documenting a pay-per-call model in text an agent would already read: tool names/descriptions and connection-time instructions.",
+      "Looks for mentions of the x402 protocol, stablecoin/USDC payment language, \"pay-per-call\" pricing, or explicit HTTP 402 references.",
+      "Purely informational and never penalizes the score: a paid tool is not inherently riskier than a free one, but it's useful for an agent operator to know a call may cost real money before it's made.",
+    ],
+  },
 ];
 
 function statusPenaltyRow(status: string, penalty: number) {
