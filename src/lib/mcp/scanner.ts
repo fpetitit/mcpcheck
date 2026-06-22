@@ -8,6 +8,7 @@ import { checkInventory } from "../checks/inventory";
 import { checkSecurity } from "../checks/security";
 import { checkNetwork } from "../checks/network";
 import { checkLicense } from "../checks/license";
+import { checkMonetization } from "../checks/monetization";
 import { checkContextFootprint } from "../checks/contextFootprint";
 import { checkSchemaQuality } from "../checks/schemaQuality";
 import { checkHistory } from "../checks/history";
@@ -36,6 +37,7 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
   ]);
   const contextFootprint = checkContextFootprint(tools, resources, resourceTemplates, prompts);
   const schemaQuality = checkSchemaQuality(tools);
+  const monetization = checkMonetization(ctx, tools);
 
   if (ctx.client) {
     await ctx.client.close().catch(() => undefined);
@@ -50,6 +52,7 @@ export async function scanMcpServer(rawUrl: string): Promise<ScanResult> {
     license,
     contextFootprint,
     schemaQuality,
+    monetization,
   ];
   const preliminaryScore = computeScore(scoredChecks);
   const history = checkHistory(previousScan, tools, preliminaryScore.value);

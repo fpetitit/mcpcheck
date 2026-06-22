@@ -41,6 +41,7 @@ const AXIS_FOR_CHECK: Record<string, Axis> = {
   "context-footprint": "ergonomics",
   "schema-quality": "ergonomics",
   license: "governance",
+  monetization: "governance",
 };
 
 const AXIS_LABELS: Record<Axis, string> = {
