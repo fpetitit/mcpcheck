@@ -51,6 +51,36 @@ export async function saveScan(result: ScanResult): Promise<void> {
   }
 }
 
+export interface RecentScanEntry {
+  target: string;
+  scannedAt: string;
+  score: number;
+  grade: ScanResult["grade"];
+}
+
+export async function getRecentScans(limit = 50): Promise<RecentScanEntry[]> {
+  const sql = getSql();
+  if (!sql) return [];
+
+  try {
+    await ensureSchema();
+    const rows = await sql`
+      SELECT target, scanned_at, score, grade
+      FROM scans
+      ORDER BY scanned_at DESC
+      LIMIT ${limit}
+    `;
+    return rows.map((row) => ({
+      target: row.target as string,
+      scannedAt: new Date(row.scanned_at as string).toISOString(),
+      score: row.score as number,
+      grade: row.grade as ScanResult["grade"],
+    }));
+  } catch {
+    return [];
+  }
+}
+
 export async function getScanHistory(target: string, limit = 20): Promise<ScanHistoryEntry[]> {
   const sql = getSql();
   if (!sql) return [];
