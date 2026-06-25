@@ -13,6 +13,13 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [badgeCopied, setBadgeCopied] = useState(false);
+
+  async function copyBadgeSnippet(snippet: string) {
+    await navigator.clipboard.writeText(snippet);
+    setBadgeCopied(true);
+    setTimeout(() => setBadgeCopied(false), 1500);
+  }
 
   useEffect(() => {
     if (initialUrl) {
@@ -134,6 +141,35 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
               </Link>
             </div>
           </div>
+
+          <div className="flex flex-col gap-3 rounded border border-dashed border-[#ff8c00]/50 bg-[#ff8c00]/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-1">
+              <p className="text-xs font-bold uppercase tracking-wide text-[#ff8c00]">
+                $ is this your MCP server?
+              </p>
+              <p className="text-xs text-[#ff8c00]/80">
+                Flex the score. Drop this badge in your README and let it auto-update on every rescan.
+              </p>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/api/badge?url=${encodeURIComponent(result.target)}`}
+                alt={`MCPCheckup badge for ${result.target}`}
+                className="mt-2 h-5 w-fit"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                copyBadgeSnippet(
+                  `[![MCPCheckup](${window.location.origin}/api/badge?url=${encodeURIComponent(result.target)})](${window.location.origin}/scorecard?url=${encodeURIComponent(result.target)})`,
+                )
+              }
+              className="shrink-0 rounded border border-[#ff8c00] px-4 py-2 text-xs font-bold text-[#ff8c00] transition-colors hover:bg-[#ff8c00] hover:text-black"
+            >
+              {badgeCopied ? "Copied! Go paste it." : "Copy badge for README"}
+            </button>
+          </div>
+
           <div className="flex flex-col items-center gap-2 rounded border border-[#1a4d1a] bg-black p-4">
             <p className="text-xs font-medium uppercase tracking-wide text-[#39ff14]/50">
               $ score breakdown by axis
