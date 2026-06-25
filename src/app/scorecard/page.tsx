@@ -70,6 +70,8 @@ export default async function ScorecardPage({ searchParams }: Props) {
   const scorecardUrl = `${baseUrl}/scorecard?url=${encodeURIComponent(url)}`;
   const ogImageUrl = `${baseUrl}/api/og?url=${encodeURIComponent(url)}`;
   const embedSnippet = `<a href="${scorecardUrl}"><img src="${ogImageUrl}" alt="MCP scorecard for ${result.target}" width="600" /></a>`;
+  const badgeUrl = `${baseUrl}/api/badge?url=${encodeURIComponent(url)}`;
+  const badgeSnippet = `[![MCPCheckup](${badgeUrl})](${scorecardUrl})`;
 
   const counts = result.checks.reduce(
     (acc, c) => {
@@ -122,7 +124,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
       </div>
 
       <div className="mt-8 w-full max-w-2xl">
-        <ScorecardShare scorecardUrl={scorecardUrl} embedSnippet={embedSnippet} />
+        <ScorecardShare scorecardUrl={scorecardUrl} embedSnippet={embedSnippet} badgeSnippet={badgeSnippet} />
       </div>
     </div>
   );
