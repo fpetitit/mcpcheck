@@ -85,7 +85,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
       </form>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
           try a known public MCP server
         </p>
         <div className="flex flex-wrap gap-2">
@@ -123,7 +123,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-[#4ade80]/60">
-              Scanned <span className="text-[#4ade80]">{result.target}</span> in{" "}
+              Scanned <span className="font-mono text-[#4ade80]">{result.target}</span> in{" "}
               {new Date(result.finishedAt).getTime() - new Date(result.startedAt).getTime()}ms
             </p>
             <div className="flex items-center gap-3">
@@ -171,7 +171,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
           </div>
 
           <div className="flex flex-col items-center gap-2 rounded-lg border border-[#1f3a28] bg-black p-5">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+            <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
               score breakdown by axis
             </p>
             <AxisRadar axes={result.axes} color={gradeColor(result.grade)} />

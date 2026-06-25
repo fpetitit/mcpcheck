@@ -11,7 +11,7 @@ const SEVERITY_STYLES: Record<string, string> = {
 
 export function CheckCard({ check }: { check: CheckResult }) {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-[#1f3a28] bg-black p-6 font-mono shadow-[0_0_10px_rgba(74,222,128,0.08)]">
+    <div className="flex flex-col gap-4 rounded-lg border border-[#1f3a28] bg-black p-6 shadow-[0_0_10px_rgba(74,222,128,0.08)]">
       <div className="flex items-start justify-between gap-2">
         <h3 className="text-sm font-semibold text-[#4ade80]">{check.title}</h3>
         <StatusBadge status={check.status} />
@@ -29,10 +29,10 @@ export function CheckCard({ check }: { check: CheckResult }) {
           {check.findings.map((f, i) => (
             <li
               key={i}
-              className={`border-l-2 pl-3 text-xs ${SEVERITY_STYLES[f.severity] ?? "border-l-[#4ade80]/30"}`}
+              className={`border-l-2 pl-3 text-sm ${SEVERITY_STYLES[f.severity] ?? "border-l-[#4ade80]/30"}`}
             >
               <span className="font-medium">{f.title}</span>
-              <p className="text-[#4ade80]/50">{f.detail}</p>
+              <p className="text-[#4ade80]/65">{f.detail}</p>
             </li>
           ))}
         </ul>

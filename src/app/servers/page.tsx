@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ServersPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16 font-mono">
+    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
       <div className="flex w-full max-w-4xl flex-col items-center gap-3 text-center">
         <h1 className="glow-green text-3xl font-bold tracking-tight text-[#4ade80]">
           &gt; Public MCP servers_
@@ -35,9 +35,9 @@ export default function ServersPage() {
                 {server.category}
               </span>
             </div>
-            <p className="text-xs text-[#4ade80]/50">by {server.publisher}</p>
+            <p className="text-xs text-[#4ade80]/60">by {server.publisher}</p>
             <p className="flex-1 text-sm text-[#4ade80]/70">{server.description}</p>
-            <p className="truncate font-mono text-xs text-[#4ade80]/40">{server.url}</p>
+            <p className="truncate font-mono text-xs text-[#4ade80]/60">{server.url}</p>
             <Link
               href={`/?url=${encodeURIComponent(server.url)}`}
               className="mt-1 rounded-lg border border-[#fb923c] bg-black px-4 py-2 text-center text-xs font-bold text-[#fb923c] transition-colors hover:bg-[#fb923c] hover:text-black"

@@ -41,7 +41,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
 
   if (!url) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black px-6 py-16 font-mono text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black px-6 py-16 text-center">
         <p className="text-[#4ade80]/70">Missing a server to score.</p>
         <Link href="/" className="text-[#fb923c] underline-offset-4 hover:underline">
           &larr; back to the scanner
@@ -56,7 +56,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black px-6 py-16 font-mono text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black px-6 py-16 text-center">
         <p className="rounded-lg border border-[#fb923c] p-4 text-sm text-[#fb923c]">{message}</p>
         <Link href="/" className="text-[#fb923c] underline-offset-4 hover:underline">
           &larr; back to the scanner
@@ -82,7 +82,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
   );
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16 font-mono">
+    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
       <div className="flex w-full max-w-2xl flex-col items-center gap-3 text-center">
         <h1 className="glow-green text-2xl font-bold tracking-tight text-[#4ade80]">
           &gt; MCP Scorecard_

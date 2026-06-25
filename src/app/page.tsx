@@ -9,7 +9,7 @@ export default async function Home({
   const { url } = await searchParams;
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16 font-mono">
+    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
       <div className="flex w-full max-w-4xl flex-col items-center gap-4 text-center">
         <h1 className="glow-green text-4xl font-bold tracking-tight text-[#4ade80]">
           &gt; MCPCheckup_
@@ -39,7 +39,7 @@ export default async function Home({
         <ScannerForm initialUrl={url} />
       </div>
 
-      <p className="mt-16 max-w-xl text-center text-xs text-[#4ade80]/40">
+      <p className="mt-16 max-w-xl text-center text-xs text-[#4ade80]/60">
         MCPCheckup is itself an MCP server &mdash; point an MCP client at{" "}
         <code className="text-[#4ade80]/70">/api/mcp</code> to call{" "}
         <code className="text-[#4ade80]/70">scan_mcp_server</code> and{" "}
