@@ -7,7 +7,7 @@ const requestSchema = z.object({
   url: z.string().url(),
 });
 
-const RATE_LIMIT = 10;
+const RATE_LIMIT = 100;
 const RATE_LIMIT_WINDOW_SECONDS = 5 * 60;
 
 function clientIp(request: Request): string {
