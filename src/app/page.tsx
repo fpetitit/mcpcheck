@@ -31,6 +31,9 @@ export default async function Home({
         >
           $ how scoring works &rarr;
         </Link>
+        <p className="mt-4 rounded border border-[#ff8c00]/40 bg-[#ff8c00]/5 px-4 py-2 text-xs text-[#ff8c00]">
+          $ built your own MCP server? scan it below and earn a live badge for your README.
+        </p>
       </div>
       <div className="mt-10 w-full max-w-4xl">
         <ScannerForm initialUrl={url} />
