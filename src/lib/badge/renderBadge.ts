@@ -34,7 +34,7 @@ export function renderBadge({ label, message, color }: { label: string; message:
   <rect width="${labelWidth}" height="${HEIGHT}" fill="#000000"/>
   <rect x="${labelWidth}" width="${messageWidth}" height="${HEIGHT}" fill="${color}"/>
   <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
-    <text x="${labelCenter}" y="14" fill="#39ff14">${escapeXml(label)}</text>
+    <text x="${labelCenter}" y="14" fill="#4ade80">${escapeXml(label)}</text>
     <text x="${messageCenter}" y="14" fill="#000000" font-weight="bold">${escapeXml(message)}</text>
   </g>
 </svg>`;

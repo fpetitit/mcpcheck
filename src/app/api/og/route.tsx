@@ -24,7 +24,7 @@ function ogRadar(axes: AxisScore[], color: string, size = 220) {
           key={level}
           points={axes.map((_, i) => pointFor(level * 100, i).join(",")).join(" ")}
           fill="none"
-          stroke="#39ff1433"
+          stroke="#4ade8033"
           strokeWidth={1}
         />
       ))}
@@ -76,7 +76,7 @@ export async function GET(request: Request) {
           fontFamily: "monospace",
         }}
       >
-        <div style={{ display: "flex", color: "#39ff14", fontSize: 28, opacity: 0.8 }}>
+        <div style={{ display: "flex", color: "#4ade80", fontSize: 28, opacity: 0.8 }}>
           &gt; MCPCheckup_
         </div>
 
@@ -119,7 +119,7 @@ export async function GET(request: Request) {
           )}
         </div>
 
-        <div style={{ display: "flex", color: "#39ff14", fontSize: 22, opacity: 0.5 }}>
+        <div style={{ display: "flex", color: "#4ade80", fontSize: 22, opacity: 0.5 }}>
           mcpcheckup.xyz &mdash; scan any remote MCP server
         </div>
       </div>

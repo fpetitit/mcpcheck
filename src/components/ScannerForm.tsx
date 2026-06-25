@@ -73,20 +73,20 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
           placeholder="https://example.com/mcp"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 rounded border border-[#1a4d1a] bg-black px-4 py-3 font-mono text-sm text-[#39ff14] outline-none placeholder:text-[#39ff14]/40 focus:border-[#39ff14] focus:shadow-[0_0_8px_rgba(57,255,20,0.4)]"
+          className="flex-1 rounded-lg border border-[#1f3a28] bg-black px-4 py-3 font-mono text-sm text-[#4ade80] outline-none placeholder:text-[#4ade80]/40 focus:border-[#4ade80] focus:shadow-[0_0_8px_rgba(74,222,128,0.4)]"
         />
         <button
           type="submit"
           disabled={loading}
-          className="rounded border border-[#ff8c00] bg-black px-6 py-3 text-sm font-bold text-[#ff8c00] transition-colors hover:bg-[#ff8c00] hover:text-black disabled:opacity-50"
+          className="rounded-lg border border-[#fb923c] bg-black px-6 py-3 text-sm font-bold text-[#fb923c] transition-colors hover:bg-[#fb923c] hover:text-black disabled:opacity-50"
         >
           {loading ? "Scanning…" : "Scan"}
         </button>
       </form>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-[#39ff14]/50">
-          $ try a known public MCP server
+        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+          try a known public MCP server
         </p>
         <div className="flex flex-wrap gap-2">
           {EXAMPLE_SERVERS.map((server) => (
@@ -96,7 +96,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
               title={server.description}
               disabled={loading}
               onClick={() => handleExampleClick(server.url)}
-              className="rounded border border-[#39ff14]/40 px-3 py-1.5 text-xs font-medium text-[#39ff14] transition-colors hover:border-[#39ff14] hover:bg-[#39ff14]/10 hover:shadow-[0_0_6px_rgba(57,255,20,0.4)] disabled:opacity-50"
+              className="rounded-lg border border-[#4ade80]/40 px-3 py-1.5 text-xs font-medium text-[#4ade80] transition-colors hover:border-[#4ade80] hover:bg-[#4ade80]/10 hover:shadow-[0_0_6px_rgba(74,222,128,0.4)] disabled:opacity-50"
             >
               {server.name}
             </button>
@@ -106,7 +106,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
             title="Scan MCPCheckup's own MCP server, eating its own dog food."
             disabled={loading}
             onClick={handleSelfScan}
-            className="rounded border border-[#ff8c00]/60 px-3 py-1.5 text-xs font-medium text-[#ff8c00] transition-colors hover:border-[#ff8c00] hover:bg-[#ff8c00]/10 hover:shadow-[0_0_6px_rgba(255,140,0,0.4)] disabled:opacity-50"
+            className="rounded-lg border border-[#fb923c]/60 px-3 py-1.5 text-xs font-medium text-[#fb923c] transition-colors hover:border-[#fb923c] hover:bg-[#fb923c]/10 hover:shadow-[0_0_6px_rgba(251,146,60,0.4)] disabled:opacity-50"
           >
             Scan MCPCheckup itself
           </button>
@@ -114,7 +114,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
       </div>
 
       {error && (
-        <p className="rounded border border-[#ff8c00] bg-black p-4 text-sm text-[#ff8c00]">
+        <p className="rounded-lg border border-[#fb923c] bg-black p-4 text-sm text-[#fb923c]">
           {error}
         </p>
       )}
@@ -122,32 +122,32 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
       {result && (
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-[#39ff14]/60">
-              Scanned <span className="text-[#39ff14]">{result.target}</span> in{" "}
+            <p className="text-sm text-[#4ade80]/60">
+              Scanned <span className="text-[#4ade80]">{result.target}</span> in{" "}
               {new Date(result.finishedAt).getTime() - new Date(result.startedAt).getTime()}ms
             </p>
             <div className="flex items-center gap-3">
               <span
-                className="rounded border px-3 py-1 text-sm font-bold"
+                className="rounded-lg border px-3 py-1 text-sm font-bold"
                 style={{ borderColor: gradeColor(result.grade), color: gradeColor(result.grade) }}
               >
                 {result.grade} &middot; {result.score}/100
               </span>
               <Link
                 href={`/scorecard?url=${encodeURIComponent(result.target)}`}
-                className="rounded border border-[#ff8c00] px-3 py-1.5 text-xs font-bold text-[#ff8c00] transition-colors hover:bg-[#ff8c00] hover:text-black"
+                className="rounded-lg border border-[#fb923c] px-3 py-1.5 text-xs font-bold text-[#fb923c] transition-colors hover:bg-[#fb923c] hover:text-black"
               >
                 Get shareable scorecard &rarr;
               </Link>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 rounded border border-dashed border-[#ff8c00]/50 bg-[#ff8c00]/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 rounded-lg border border-dashed border-[#fb923c]/50 bg-[#fb923c]/5 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
-              <p className="text-xs font-bold uppercase tracking-wide text-[#ff8c00]">
-                $ is this your MCP server?
+              <p className="text-xs font-bold uppercase tracking-wide text-[#fb923c]">
+                is this your MCP server?
               </p>
-              <p className="text-xs text-[#ff8c00]/80">
+              <p className="text-xs text-[#fb923c]/80">
                 Flex the score. Drop this badge in your README and let it auto-update on every rescan.
               </p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -164,15 +164,15 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
                   `[![MCPCheckup](${window.location.origin}/api/badge?url=${encodeURIComponent(result.target)})](${window.location.origin}/scorecard?url=${encodeURIComponent(result.target)})`,
                 )
               }
-              className="shrink-0 rounded border border-[#ff8c00] px-4 py-2 text-xs font-bold text-[#ff8c00] transition-colors hover:bg-[#ff8c00] hover:text-black"
+              className="shrink-0 rounded-lg border border-[#fb923c] px-4 py-2 text-xs font-bold text-[#fb923c] transition-colors hover:bg-[#fb923c] hover:text-black"
             >
               {badgeCopied ? "Copied! Go paste it." : "Copy badge for README"}
             </button>
           </div>
 
-          <div className="flex flex-col items-center gap-2 rounded border border-[#1a4d1a] bg-black p-4">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#39ff14]/50">
-              $ score breakdown by axis
+          <div className="flex flex-col items-center gap-2 rounded-lg border border-[#1f3a28] bg-black p-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+              score breakdown by axis
             </p>
             <AxisRadar axes={result.axes} color={gradeColor(result.grade)} />
           </div>

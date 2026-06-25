@@ -42,8 +42,8 @@ export default async function ScorecardPage({ searchParams }: Props) {
   if (!url) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black px-6 py-16 font-mono text-center">
-        <p className="text-[#39ff14]/70">Missing a server to score.</p>
-        <Link href="/" className="text-[#ff8c00] underline-offset-4 hover:underline">
+        <p className="text-[#4ade80]/70">Missing a server to score.</p>
+        <Link href="/" className="text-[#fb923c] underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
@@ -57,8 +57,8 @@ export default async function ScorecardPage({ searchParams }: Props) {
     const message = error instanceof Error ? error.message : "Unknown error";
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black px-6 py-16 font-mono text-center">
-        <p className="rounded border border-[#ff8c00] p-4 text-sm text-[#ff8c00]">{message}</p>
-        <Link href="/" className="text-[#ff8c00] underline-offset-4 hover:underline">
+        <p className="rounded-lg border border-[#fb923c] p-4 text-sm text-[#fb923c]">{message}</p>
+        <Link href="/" className="text-[#fb923c] underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
@@ -84,15 +84,15 @@ export default async function ScorecardPage({ searchParams }: Props) {
   return (
     <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16 font-mono">
       <div className="flex w-full max-w-2xl flex-col items-center gap-3 text-center">
-        <h1 className="glow-green text-2xl font-bold tracking-tight text-[#39ff14]">
+        <h1 className="glow-green text-2xl font-bold tracking-tight text-[#4ade80]">
           &gt; MCP Scorecard_
         </h1>
-        <Link href="/" className="text-xs font-medium text-[#ff8c00] underline-offset-4 hover:underline">
+        <Link href="/" className="text-xs font-medium text-[#fb923c] underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
 
-      <div className="mt-10 flex w-full max-w-2xl flex-col items-center gap-6 rounded border border-[#1a4d1a] bg-black p-8 shadow-[0_0_12px_rgba(57,255,20,0.1)]">
+      <div className="mt-10 flex w-full max-w-2xl flex-col items-center gap-7 rounded-lg border border-[#1f3a28] bg-black p-9 shadow-[0_0_12px_rgba(74,222,128,0.1)]">
         <div
           className="flex h-32 w-32 items-center justify-center rounded-full border-4 text-5xl font-bold"
           style={{ borderColor: color, color }}
@@ -106,7 +106,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
           </p>
         </div>
 
-        <div className="flex gap-4 text-xs text-[#39ff14]/60">
+        <div className="flex gap-4 text-xs text-[#4ade80]/60">
           <span>{counts.ok} ok</span>
           <span>{counts.warning} warning</span>
           <span>{counts.error} error</span>
@@ -117,7 +117,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
 
         <Link
           href={`/?url=${encodeURIComponent(url)}`}
-          className="rounded border border-[#39ff14]/40 px-4 py-2 text-xs font-medium text-[#39ff14] transition-colors hover:border-[#39ff14] hover:bg-[#39ff14]/10"
+          className="rounded-lg border border-[#4ade80]/40 px-4 py-2 text-xs font-medium text-[#4ade80] transition-colors hover:border-[#4ade80] hover:bg-[#4ade80]/10"
         >
           View full scan results &rarr;
         </Link>
