@@ -3,7 +3,7 @@ type AxisPoint = { label: string; value: number };
 export function AxisRadar({
   axes,
   size = 200,
-  color = "#39ff14",
+  color = "#4ade80",
 }: {
   axes: AxisPoint[];
   size?: number;
@@ -29,13 +29,13 @@ export function AxisRadar({
           key={level}
           points={axes.map((_, i) => pointFor(level * 100, i).join(",")).join(" ")}
           fill="none"
-          stroke="#39ff1433"
+          stroke="#4ade8033"
           strokeWidth={1}
         />
       ))}
       {axes.map((a, i) => {
         const [x, y] = pointFor(100, i);
-        return <line key={a.label} x1={center} y1={center} x2={x} y2={y} stroke="#39ff1433" strokeWidth={1} />;
+        return <line key={a.label} x1={center} y1={center} x2={x} y2={y} stroke="#4ade8033" strokeWidth={1} />;
       })}
       <polygon points={valuePolygon} fill={`${color}33`} stroke={color} strokeWidth={2} />
       {axes.map((a, i) => {
