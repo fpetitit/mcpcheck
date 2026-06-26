@@ -4,6 +4,7 @@ export interface Finding {
   severity: Severity;
   title: string;
   detail: string;
+  toolName?: string;
 }
 
 export interface CheckResult {

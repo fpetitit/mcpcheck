@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { ScanResult } from "@/lib/mcp/types";
 import { EXAMPLE_SERVERS } from "@/lib/exampleServers";
 import { gradeColor } from "@/lib/mcp/gradeColor";
 import { CheckCard } from "./CheckCard";
 import { AxisRadar } from "./AxisRadar";
+import { ToolsList } from "./ToolsList";
 
 export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
   const [url, setUrl] = useState(initialUrl ?? "");
@@ -176,6 +178,23 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
             </p>
             <AxisRadar axes={result.axes} color={gradeColor(result.grade)} />
           </div>
+
+          {(() => {
+            const tools = (result.checks.find((c) => c.id === "inventory")?.data?.tools ?? []) as Tool[];
+            if (tools.length === 0) return null;
+            const toolFindings = result.checks
+              .filter((c) => c.id === "security" || c.id === "schema-quality")
+              .flatMap((c) => c.findings ?? []);
+            return (
+              <div className="flex flex-col gap-2 rounded-lg border border-[#27272a] bg-black p-5">
+                <p className="text-xs font-medium uppercase tracking-wide text-white/60">
+                  tools ({tools.length}) &middot; security &amp; schema findings inline
+                </p>
+                <ToolsList tools={tools} findings={toolFindings} />
+              </div>
+            );
+          })()}
+
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {result.checks.map((check) => (
               <CheckCard key={check.id} check={check} />

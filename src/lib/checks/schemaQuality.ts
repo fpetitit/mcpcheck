@@ -29,6 +29,7 @@ function analyzeAnnotations(tool: Tool): Finding[] {
         "No readOnlyHint/destructiveHint/idempotentHint/openWorldHint metadata is declared. " +
         "Agents have nothing to reason about before deciding whether a call is safe to retry, " +
         "needs confirmation, or can run unattended.",
+      toolName: tool.name,
     });
     return findings;
   }
@@ -41,6 +42,7 @@ function analyzeAnnotations(tool: Tool): Finding[] {
         "The tool's name or description suggests it deletes, removes, or otherwise destroys data, " +
         "but it explicitly claims to be non-destructive. An agent trusting this hint could perform " +
         "an unsafe action without confirmation.",
+      toolName: tool.name,
     });
   } else if (looksDestructive(tool) && annotations.destructiveHint === undefined) {
     findings.push({
@@ -49,6 +51,7 @@ function analyzeAnnotations(tool: Tool): Finding[] {
       detail:
         "The tool's name or description suggests a destructive action, but destructiveHint is " +
         "unset. Declaring it explicitly lets agents require confirmation before calling it.",
+      toolName: tool.name,
     });
   }
 
@@ -57,6 +60,7 @@ function analyzeAnnotations(tool: Tool): Finding[] {
       severity: "low",
       title: `Tool "${tool.name}" declares contradictory annotations`,
       detail: "readOnlyHint and destructiveHint are both true, which is self-contradictory.",
+      toolName: tool.name,
     });
   }
 
@@ -76,6 +80,7 @@ function analyzeSchemaValidity(tool: Tool): Finding[] {
           `The declared inputSchema is not a valid JSON Schema: ${err instanceof Error ? err.message : String(err)}. ` +
           "Clients/agents that validate arguments before calling the tool may reject every call, or " +
           "skip validation entirely and pass through unchecked input.",
+        toolName: tool.name,
       },
     ];
   }
