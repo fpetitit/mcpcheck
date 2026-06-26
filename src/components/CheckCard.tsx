@@ -1,5 +1,7 @@
+import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { CheckResult } from "@/lib/mcp/types";
 import { StatusBadge } from "./StatusBadge";
+import { ToolsList } from "./ToolsList";
 
 const SEVERITY_STYLES: Record<string, string> = {
   info: "border-l-[#4ade80]/40 text-[#4ade80]/80",
@@ -36,6 +38,15 @@ export function CheckCard({ check }: { check: CheckResult }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {check.id === "inventory" && Array.isArray(check.data?.tools) && check.data.tools.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
+            tools ({check.data.tools.length})
+          </p>
+          <ToolsList tools={check.data.tools as Tool[]} />
+        </div>
       )}
 
       {check.data && (
