@@ -14,8 +14,8 @@ const ANNOTATION_HINTS: Array<{
   style: string;
 }> = [
   { key: "destructiveHint", label: "destructive", style: "border-red-400/60 text-red-400" },
-  { key: "readOnlyHint", label: "read-only", style: "border-[#4ade80]/60 text-[#4ade80]" },
-  { key: "idempotentHint", label: "idempotent", style: "border-[#4ade80]/40 text-[#4ade80]/80" },
+  { key: "readOnlyHint", label: "read-only", style: "border-white/60 text-white" },
+  { key: "idempotentHint", label: "idempotent", style: "border-white/40 text-white/80" },
   { key: "openWorldHint", label: "open-world", style: "border-[#fb923c]/60 text-[#fb923c]" },
 ];
 
@@ -27,14 +27,14 @@ function ToolEntry({ tool }: { tool: Tool }) {
   const activeHints = ANNOTATION_HINTS.filter((h) => tool.annotations?.[h.key]);
 
   return (
-    <li className="rounded-lg border border-[#1f3a28] bg-black/40">
+    <li className="rounded-lg border border-[#27272a] bg-black/40">
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
         className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left"
       >
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono text-sm text-[#4ade80]">{tool.name}</span>
+          <span className="font-mono text-sm text-white">{tool.name}</span>
           {activeHints.map((h) => (
             <span
               key={h.key}
@@ -43,29 +43,29 @@ function ToolEntry({ tool }: { tool: Tool }) {
               {h.label}
             </span>
           ))}
-          <span className="text-xs text-[#4ade80]/50">
+          <span className="text-xs text-white/50">
             {paramNames.length === 0 ? "no params" : `${paramNames.length} param${paramNames.length > 1 ? "s" : ""}`}
           </span>
         </div>
-        <span className="text-xs text-[#4ade80]/50">{expanded ? "▾" : "▸"}</span>
+        <span className="text-xs text-white/50">{expanded ? "▾" : "▸"}</span>
       </button>
 
       {expanded && (
-        <div className="flex flex-col gap-2 border-t border-[#1f3a28] px-3 py-2">
-          {tool.description && <p className="text-sm text-[#4ade80]/70">{tool.description}</p>}
+        <div className="flex flex-col gap-2 border-t border-[#27272a] px-3 py-2">
+          {tool.description && <p className="text-sm text-white/70">{tool.description}</p>}
           {paramNames.length > 0 && (
             <ul className="flex flex-col gap-1">
               {paramNames.map((name) => (
                 <li key={name} className="flex flex-wrap items-baseline gap-2 text-xs">
-                  <span className="font-mono text-[#4ade80]/90">{name}</span>
+                  <span className="font-mono text-white/90">{name}</span>
                   {properties[name].type && (
-                    <span className="text-[#4ade80]/50">{properties[name].type}</span>
+                    <span className="text-white/50">{properties[name].type}</span>
                   )}
                   {required.has(name) && (
                     <span className="text-[#fb923c]">required</span>
                   )}
                   {properties[name].description && (
-                    <span className="text-[#4ade80]/60">— {properties[name].description}</span>
+                    <span className="text-white/60">— {properties[name].description}</span>
                   )}
                 </li>
               ))}

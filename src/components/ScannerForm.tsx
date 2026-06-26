@@ -73,7 +73,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
           placeholder="https://example.com/mcp"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 rounded-lg border border-[#1f3a28] bg-black px-4 py-3 font-mono text-sm text-[#4ade80] outline-none placeholder:text-[#4ade80]/40 focus:border-[#4ade80] focus:shadow-[0_0_8px_rgba(74,222,128,0.4)]"
+          className="flex-1 rounded-lg border border-[#27272a] bg-black px-4 py-3 font-mono text-sm text-white outline-none placeholder:text-white/40 focus:border-white focus:shadow-[0_0_8px_rgba(255,255,255,0.3)]"
         />
         <button
           type="submit"
@@ -85,7 +85,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
       </form>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
+        <p className="text-xs font-medium uppercase tracking-wide text-white/60">
           try a known public MCP server
         </p>
         <div className="flex flex-wrap gap-2">
@@ -96,7 +96,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
               title={server.description}
               disabled={loading}
               onClick={() => handleExampleClick(server.url)}
-              className="rounded-lg border border-[#4ade80]/40 px-3 py-1.5 text-xs font-medium text-[#4ade80] transition-colors hover:border-[#4ade80] hover:bg-[#4ade80]/10 hover:shadow-[0_0_6px_rgba(74,222,128,0.4)] disabled:opacity-50"
+              className="rounded-lg border border-white/40 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:border-white hover:bg-white/10 hover:shadow-[0_0_6px_rgba(255,255,255,0.3)] disabled:opacity-50"
             >
               {server.name}
             </button>
@@ -122,8 +122,8 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
       {result && (
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-[#4ade80]/60">
-              Scanned <span className="font-mono text-[#4ade80]">{result.target}</span> in{" "}
+            <p className="text-sm text-white/60">
+              Scanned <span className="font-mono text-white">{result.target}</span> in{" "}
               {new Date(result.finishedAt).getTime() - new Date(result.startedAt).getTime()}ms
             </p>
             <div className="flex items-center gap-3">
@@ -170,8 +170,8 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
             </button>
           </div>
 
-          <div className="flex flex-col items-center gap-2 rounded-lg border border-[#1f3a28] bg-black p-5">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
+          <div className="flex flex-col items-center gap-2 rounded-lg border border-[#27272a] bg-black p-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-white/60">
               score breakdown by axis
             </p>
             <AxisRadar axes={result.axes} color={gradeColor(result.grade)} />
