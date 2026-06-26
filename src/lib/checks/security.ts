@@ -33,7 +33,7 @@ function scanText(text: string, patterns: { pattern: RegExp; label: string }[]):
 
 // Runs injection heuristics over a single piece of model-facing text (a tool
 // description, a parameter description, or the server's instructions).
-function injectionFindings(location: string, text: string): Finding[] {
+function injectionFindings(location: string, text: string, toolName?: string): Finding[] {
   const findings: Finding[] = [];
   if (!text) return findings;
 
@@ -43,6 +43,7 @@ function injectionFindings(location: string, text: string): Finding[] {
       severity: "high",
       title: `${location} contains suspicious instruction-like text`,
       detail: `Matched: ${injectionHits.join(", ")}. This could be a prompt-injection vector targeting the LLM reading it.`,
+      toolName,
     });
   }
 
@@ -52,6 +53,7 @@ function injectionFindings(location: string, text: string): Finding[] {
       title: `${location} contains hidden/invisible characters`,
       detail:
         "Zero-width or bidirectional-override characters can hide instructions from a human reviewer while remaining visible to the model.",
+      toolName,
     });
   }
 
@@ -79,11 +81,15 @@ function analyzeTool(tool: Tool): Finding[] {
   const findings: Finding[] = [];
   const description = tool.description ?? "";
 
-  findings.push(...injectionFindings(`Tool "${tool.name}" description`, description));
+  findings.push(...injectionFindings(`Tool "${tool.name}" description`, description, tool.name));
 
   for (const param of paramDescriptions(tool)) {
     findings.push(
-      ...injectionFindings(`Tool "${tool.name}" parameter "${param.name}" description`, param.description),
+      ...injectionFindings(
+        `Tool "${tool.name}" parameter "${param.name}" description`,
+        param.description,
+        tool.name,
+      ),
     );
   }
 
@@ -93,6 +99,7 @@ function analyzeTool(tool: Tool): Finding[] {
       severity: "medium",
       title: `Tool "${tool.name}" may expose a sensitive capability`,
       detail: `Possible capability: ${dangerHits.join(", ")}. Review whether this tool's access is properly scoped and consented to.`,
+      toolName: tool.name,
     });
   }
 
@@ -101,6 +108,7 @@ function analyzeTool(tool: Tool): Finding[] {
       severity: "low",
       title: `Tool "${tool.name}" has little or no description`,
       detail: "A missing or very short description makes it hard to audit what this tool actually does.",
+      toolName: tool.name,
     });
   }
 
