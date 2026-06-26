@@ -190,7 +190,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
                 <p className="text-xs font-medium uppercase tracking-wide text-white/60">
                   tools ({tools.length}) &middot; security &amp; schema findings inline
                 </p>
-                <ToolsList tools={tools} findings={toolFindings} />
+                <ToolsList tools={tools} findings={toolFindings} target={result.target} />
               </div>
             );
           })()}

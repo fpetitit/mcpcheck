@@ -33,12 +33,17 @@ async function tryConnect(
   return { client, protocolVersion: getNegotiatedProtocolVersion(transport) };
 }
 
-export async function connectToServer(url: URL): Promise<ScanContext> {
+// Optional Authorization header value (e.g. "Bearer xyz") forwarded to the
+// server on every request, so callers can test tools on authenticated servers.
+export async function connectToServer(url: URL, authorization?: string): Promise<ScanContext> {
   const start = Date.now();
+  const requestInit = authorization
+    ? { headers: { Authorization: authorization } }
+    : undefined;
 
   try {
     const { client, protocolVersion } = await tryConnect(
-      () => new StreamableHTTPClientTransport(url),
+      () => new StreamableHTTPClientTransport(url, { requestInit }),
     );
     return {
       url,
@@ -51,7 +56,9 @@ export async function connectToServer(url: URL): Promise<ScanContext> {
   } catch (streamableError) {
     try {
       const sseStart = Date.now();
-      const { client, protocolVersion } = await tryConnect(() => new SSEClientTransport(url));
+      const { client, protocolVersion } = await tryConnect(
+        () => new SSEClientTransport(url, { requestInit }),
+      );
       return {
         url,
         client,

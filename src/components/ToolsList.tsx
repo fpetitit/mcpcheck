@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { Finding } from "@/lib/mcp/types";
 import { SEVERITY_BORDER_TEXT, SEVERITY_DOT } from "@/lib/severityStyle";
+import { ToolRunner } from "./ToolRunner";
 
 type JsonSchemaProperty = {
   type?: string;
@@ -21,7 +22,7 @@ const ANNOTATION_HINTS: Array<{
   { key: "openWorldHint", label: "open-world", style: "border-[#fb923c]/60 text-[#fb923c]" },
 ];
 
-function ToolEntry({ tool, findings }: { tool: Tool; findings: Finding[] }) {
+function ToolEntry({ tool, findings, target }: { tool: Tool; findings: Finding[]; target?: string }) {
   const [expanded, setExpanded] = useState(false);
   const properties = (tool.inputSchema?.properties ?? {}) as Record<string, JsonSchemaProperty>;
   const required = new Set(tool.inputSchema?.required ?? []);
@@ -101,13 +102,23 @@ function ToolEntry({ tool, findings }: { tool: Tool; findings: Finding[] }) {
               ))}
             </ul>
           )}
+
+          {target && <ToolRunner tool={tool} target={target} />}
         </div>
       )}
     </li>
   );
 }
 
-export function ToolsList({ tools, findings = [] }: { tools: Tool[]; findings?: Finding[] }) {
+export function ToolsList({
+  tools,
+  findings = [],
+  target,
+}: {
+  tools: Tool[];
+  findings?: Finding[];
+  target?: string;
+}) {
   const [query, setQuery] = useState("");
 
   const findingsByTool = useMemo(() => {
@@ -147,7 +158,12 @@ export function ToolsList({ tools, findings = [] }: { tools: Tool[]; findings?: 
       ) : (
         <ul className="flex flex-col gap-2">
           {filteredTools.map((tool) => (
-            <ToolEntry key={tool.name} tool={tool} findings={findingsByTool.get(tool.name) ?? []} />
+            <ToolEntry
+              key={tool.name}
+              tool={tool}
+              findings={findingsByTool.get(tool.name) ?? []}
+              target={target}
+            />
           ))}
         </ul>
       )}
