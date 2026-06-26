@@ -6,21 +6,21 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
+    <div className="flex min-h-screen flex-col items-center bg-white px-6 py-16">
       <div className="flex w-full max-w-2xl flex-col items-center gap-3 text-center">
-        <h1 className="glow-green text-3xl font-bold tracking-tight text-[#4ade80]">
-          &gt; Terms of Service_
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          Terms of Service
         </h1>
-        <Link href="/" className="text-xs font-medium text-[#fb923c] underline-offset-4 hover:underline">
+        <Link href="/" className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
 
-      <div className="mt-10 flex w-full max-w-2xl flex-col gap-6 rounded-lg border border-[#27272a] bg-black p-6 text-sm leading-relaxed text-white/70">
+      <div className="mt-10 flex w-full max-w-2xl flex-col gap-6 rounded-lg border border-slate-200 bg-white p-6 text-sm leading-relaxed text-slate-600">
         <p>Last updated: 2026-06-21</p>
 
         <section>
-          <h2 className="mb-2 text-base font-bold text-white">1. What this service does</h2>
+          <h2 className="mb-2 text-base font-bold text-slate-900">1. What this service does</h2>
           <p>
             MCPCheckup connects to an MCP server URL you provide and runs a set of read-only checks
             against it (handshake, capability inventory, security heuristics, network/TLS posture,
@@ -30,7 +30,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-base font-bold text-white">2. Your responsibility</h2>
+          <h2 className="mb-2 text-base font-bold text-slate-900">2. Your responsibility</h2>
           <p>
             You are responsible for only submitting URLs you are authorized to scan. MCPCheckup
             blocks scans of private/internal network ranges and localhost, but it is still your
@@ -39,7 +39,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-base font-bold text-white">3. No warranty</h2>
+          <h2 className="mb-2 text-base font-bold text-slate-900">3. No warranty</h2>
           <p>
             MCPCheckup is provided &quot;as is&quot;, free of charge, with no warranty of any kind.
             Its checks are heuristic — they can produce false positives or false negatives — and are
@@ -49,7 +49,7 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-base font-bold text-white">4. Availability</h2>
+          <h2 className="mb-2 text-base font-bold text-slate-900">4. Availability</h2>
           <p>
             This is a free, independently-run tool. It may be modified, interrupted, or discontinued
             at any time without notice.
@@ -57,12 +57,12 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-base font-bold text-white">5. License</h2>
+          <h2 className="mb-2 text-base font-bold text-slate-900">5. License</h2>
           <p>
             The MCPCheckup source code is open source under the{" "}
             <a
               href="https://github.com/fpetitit/mcpcheck/blob/main/LICENSE"
-              className="text-[#fb923c] underline-offset-4 hover:underline"
+              className="text-orange-600 underline-offset-4 hover:underline"
             >
               MIT License
             </a>
@@ -71,11 +71,11 @@ export default function TermsPage() {
         </section>
 
         <section>
-          <h2 className="mb-2 text-base font-bold text-white">6. Contact</h2>
+          <h2 className="mb-2 text-base font-bold text-slate-900">6. Contact</h2>
           <p>
-            Questions about these terms: <span className="text-white">francois.petitit@gmail.com</span>.
+            Questions about these terms: <span className="text-slate-900">francois.petitit@gmail.com</span>.
             See also the{" "}
-            <Link href="/privacy" className="text-[#fb923c] underline-offset-4 hover:underline">
+            <Link href="/privacy" className="text-orange-600 underline-offset-4 hover:underline">
               Privacy Policy
             </Link>
             .

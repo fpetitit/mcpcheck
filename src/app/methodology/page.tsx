@@ -163,43 +163,43 @@ const CHECKS: CheckDoc[] = [
 
 function statusPenaltyRow(status: string, penalty: number) {
   return (
-    <tr className="border-t border-[#27272a]/60">
-      <td className="py-1.5 pr-4 text-white/80">{status}</td>
-      <td className="py-1.5 text-right text-white/60">-{penalty}</td>
+    <tr className="border-t border-slate-200">
+      <td className="py-1.5 pr-4 text-slate-700">{status}</td>
+      <td className="py-1.5 text-right text-slate-500">-{penalty}</td>
     </tr>
   );
 }
 
 function findingPenaltyRow(severity: string, penalty: number) {
   return (
-    <tr className="border-t border-[#27272a]/60">
-      <td className="py-1.5 pr-4 text-white/80">{severity}</td>
-      <td className="py-1.5 text-right text-white/60">{penalty === 0 ? "0" : `-${penalty}`}</td>
+    <tr className="border-t border-slate-200">
+      <td className="py-1.5 pr-4 text-slate-700">{severity}</td>
+      <td className="py-1.5 text-right text-slate-500">{penalty === 0 ? "0" : `-${penalty}`}</td>
     </tr>
   );
 }
 
 export default function MethodologyPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
+    <div className="flex min-h-screen flex-col items-center bg-white px-6 py-16">
       <div className="flex w-full max-w-3xl flex-col items-center gap-3 text-center">
-        <h1 className="glow-green text-3xl font-bold tracking-tight text-[#4ade80]">
-          &gt; Methodology_
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          Methodology
         </h1>
-        <p className="max-w-2xl text-sm text-white/70">
+        <p className="max-w-2xl text-sm text-slate-600">
           What MCPCheckup actually checks, how each finding turns into a penalty, and how the
           per-axis scores combine into the final grade.
         </p>
-        <Link href="/" className="text-xs font-medium text-[#fb923c] underline-offset-4 hover:underline">
+        <Link href="/" className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
 
-      <div className="mt-12 w-full max-w-3xl rounded-lg border border-[#27272a] bg-black p-6">
-        <h2 className="text-lg font-bold text-white">The core idea</h2>
-        <p className="mt-3 text-sm leading-relaxed text-white/70">
+      <div className="mt-12 w-full max-w-3xl rounded-lg border border-slate-200 bg-white p-6">
+        <h2 className="text-lg font-bold text-slate-900">The core idea</h2>
+        <p className="mt-3 text-sm leading-relaxed text-slate-600">
           An MCP server&apos;s tool descriptions, parameter descriptions, and connection-time{" "}
-          <code className="text-white/90">instructions</code> aren&apos;t passive documentation —
+          <code className="text-slate-800">instructions</code> aren&apos;t passive documentation —
           they&apos;re text injected directly into an LLM&apos;s context, read and acted on before a
           human ever sees it. MCPCheckup treats &quot;quality&quot; accordingly: alongside
           conventional checks (does it connect, is TLS valid, is there a license), it specifically
@@ -209,28 +209,28 @@ export default function MethodologyPage() {
         </p>
       </div>
 
-      <div className="mt-8 w-full max-w-3xl rounded-lg border border-[#27272a] bg-black p-6">
-        <h2 className="text-lg font-bold text-white">Scoring axes</h2>
-        <p className="mt-3 text-sm text-white/70">
+      <div className="mt-8 w-full max-w-3xl rounded-lg border border-slate-200 bg-white p-6">
+        <h2 className="text-lg font-bold text-slate-900">Scoring axes</h2>
+        <p className="mt-3 text-sm text-slate-600">
           Every check belongs to exactly one of four axes. Each axis is scored independently from
           0&ndash;100, then the overall score is a weighted average of the four axis scores.
         </p>
         <div className="mt-4 flex flex-col gap-4">
           {AXES.map((axis) => (
-            <div key={axis.key} className="rounded-lg border border-[#27272a]/60 p-4">
+            <div key={axis.key} className="rounded-lg border border-slate-200 p-4">
               <div className="flex items-baseline justify-between gap-3">
-                <h3 className="text-sm font-bold text-white">{axis.label}</h3>
-                <span className="text-xs font-bold text-[#fb923c]">{axis.weight}</span>
+                <h3 className="text-sm font-bold text-slate-900">{axis.label}</h3>
+                <span className="text-xs font-bold text-orange-600">{axis.weight}</span>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-white/60">{axis.description}</p>
+              <p className="mt-2 text-xs leading-relaxed text-slate-500">{axis.description}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-8 w-full max-w-3xl rounded-lg border border-[#27272a] bg-black p-6">
-        <h2 className="text-lg font-bold text-white">How penalties work</h2>
-        <p className="mt-3 text-sm text-white/70">
+      <div className="mt-8 w-full max-w-3xl rounded-lg border border-slate-200 bg-white p-6">
+        <h2 className="text-lg font-bold text-slate-900">How penalties work</h2>
+        <p className="mt-3 text-sm text-slate-600">
           Each axis starts at 100. For every check in that axis, MCPCheckup subtracts a penalty for
           the check&apos;s overall status, plus a penalty for every individual finding it raised,
           based on severity. The result is clamped to 0&ndash;100.
@@ -238,7 +238,7 @@ export default function MethodologyPage() {
         <div className="mt-4 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-left text-white/60">
+              <tr className="text-left text-slate-500">
                 <th className="pb-1.5 font-medium">Check status</th>
                 <th className="pb-1.5 text-right font-medium">Penalty</th>
               </tr>
@@ -252,7 +252,7 @@ export default function MethodologyPage() {
           </table>
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-left text-white/60">
+              <tr className="text-left text-slate-500">
                 <th className="pb-1.5 font-medium">Finding severity</th>
                 <th className="pb-1.5 text-right font-medium">Penalty</th>
               </tr>
@@ -266,27 +266,27 @@ export default function MethodologyPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-4 text-xs text-white/60">
+        <p className="mt-4 text-xs text-slate-500">
           Grades: A &ge; 90, B &ge; 75, C &ge; 60, D &ge; 40, F below 40 &mdash; applied to the final
           weighted score.
         </p>
       </div>
 
-      <div className="mt-8 w-full max-w-3xl rounded-lg border border-[#27272a] bg-black p-6">
-        <h2 className="text-lg font-bold text-white">Every check</h2>
+      <div className="mt-8 w-full max-w-3xl rounded-lg border border-slate-200 bg-white p-6">
+        <h2 className="text-lg font-bold text-slate-900">Every check</h2>
         <div className="mt-4 flex flex-col gap-5">
           {CHECKS.map((check) => (
-            <div key={check.id} className="rounded-lg border border-[#27272a]/60 p-4">
+            <div key={check.id} className="rounded-lg border border-slate-200 p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-sm font-bold text-white">{check.title}</h3>
-                <span className="rounded-lg border border-[#fb923c]/40 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#fb923c]">
+                <h3 className="text-sm font-bold text-slate-900">{check.title}</h3>
+                <span className="rounded-lg border border-orange-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-orange-600">
                   {check.axis}
                 </span>
               </div>
-              <p className="mt-2 text-xs text-white/70">{check.summary}</p>
+              <p className="mt-2 text-xs text-slate-600">{check.summary}</p>
               <ul className="mt-3 flex flex-col gap-1.5">
                 {check.details.map((detail, i) => (
-                  <li key={i} className="text-xs leading-relaxed text-white/60">
+                  <li key={i} className="text-xs leading-relaxed text-slate-500">
                     &middot; {detail}
                   </li>
                 ))}
@@ -298,7 +298,7 @@ export default function MethodologyPage() {
 
       <Link
         href="/"
-        className="mt-10 rounded-lg border border-white/40 px-4 py-2 text-xs font-medium text-white transition-colors hover:border-white hover:bg-white/10"
+        className="mt-10 rounded-lg border border-slate-300 px-4 py-2 text-xs font-medium text-slate-900 transition-colors hover:border-slate-400 hover:bg-slate-100"
       >
         &larr; back to the scanner
       </Link>

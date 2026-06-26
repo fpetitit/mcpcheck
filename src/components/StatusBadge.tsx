@@ -1,10 +1,10 @@
 import type { CheckResult } from "@/lib/mcp/types";
 
 const STYLES: Record<CheckResult["status"], string> = {
-  ok: "border border-[#4ade80] text-[#4ade80] shadow-[0_0_6px_rgba(74,222,128,0.4)]",
-  warning: "border border-[#fb923c] text-[#fb923c] shadow-[0_0_6px_rgba(251,146,60,0.4)]",
-  error: "border border-red-400 text-red-400 shadow-[0_0_6px_rgba(248,113,113,0.4)]",
-  skipped: "border border-white/20 text-white/40",
+  ok: "border border-green-200 bg-green-50 text-green-700",
+  warning: "border border-orange-200 bg-orange-50 text-orange-700",
+  error: "border border-red-200 bg-red-50 text-red-700",
+  skipped: "border border-slate-200 bg-slate-50 text-slate-400",
 };
 
 const LABELS: Record<CheckResult["status"], string> = {
@@ -17,7 +17,7 @@ const LABELS: Record<CheckResult["status"], string> = {
 export function StatusBadge({ status }: { status: CheckResult["status"] }) {
   return (
     <span
-      className={`rounded px-2.5 py-0.5 font-mono text-xs font-medium uppercase ${STYLES[status]}`}
+      className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${STYLES[status]}`}
     >
       {LABELS[status]}
     </span>

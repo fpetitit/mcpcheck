@@ -107,15 +107,15 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-[#27272a] bg-black/40 p-3">
+    <div className="flex flex-col gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
       <div className="flex items-center justify-between gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-white/60">Try it</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Try it</p>
         {isReadOnly ? (
-          <span className="rounded border border-white/40 px-1.5 py-0.5 text-[10px] uppercase text-white/70">
+          <span className="rounded border border-slate-300 px-1.5 py-0.5 text-[10px] uppercase text-slate-600">
             read-only
           </span>
         ) : (
-          <span className="rounded border border-[#fb923c]/60 px-1.5 py-0.5 text-[10px] uppercase text-[#fb923c]">
+          <span className="rounded border border-orange-300 px-1.5 py-0.5 text-[10px] uppercase text-orange-600">
             may have side effects
           </span>
         )}
@@ -127,9 +127,9 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
             const prop = properties[name];
             const label = (
               <span className="flex flex-wrap items-baseline gap-1.5 text-xs">
-                <span className="font-mono text-white/90">{name}</span>
-                {prop.type && <span className="text-white/40">{prop.type}</span>}
-                {required.has(name) && <span className="text-[#fb923c]">required</span>}
+                <span className="font-mono text-slate-800">{name}</span>
+                {prop.type && <span className="text-slate-400">{prop.type}</span>}
+                {required.has(name) && <span className="text-orange-600">required</span>}
               </span>
             );
             if (prop.type === "boolean") {
@@ -139,7 +139,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                     type="checkbox"
                     checked={bools[name] ?? false}
                     onChange={(e) => setBools((v) => ({ ...v, [name]: e.target.checked }))}
-                    className="accent-[#fb923c]"
+                    className="accent-orange-500"
                   />
                   {label}
                 </label>
@@ -152,7 +152,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                   <select
                     value={values[name] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [name]: e.target.value }))}
-                    className="rounded border border-[#27272a] bg-black px-2 py-1 text-xs text-white outline-none focus:border-white"
+                    className="rounded border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 outline-none focus:border-orange-500"
                   >
                     <option value="">—</option>
                     {prop.enum.map((opt) => (
@@ -174,7 +174,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                     placeholder={`JSON ${prop.type}`}
                     value={values[name] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [name]: e.target.value }))}
-                    className="rounded border border-[#27272a] bg-black px-2 py-1 font-mono text-xs text-white outline-none placeholder:text-white/30 focus:border-white"
+                    className="rounded border border-slate-200 bg-white px-2 py-1 font-mono text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
                   />
                 ) : (
                   <input
@@ -182,7 +182,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                     placeholder={prop.description ?? ""}
                     value={values[name] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [name]: e.target.value }))}
-                    className="rounded border border-[#27272a] bg-black px-2 py-1 text-xs text-white outline-none placeholder:text-white/30 focus:border-white"
+                    className="rounded border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
                   />
                 )}
               </label>
@@ -195,7 +195,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
         <button
           type="button"
           onClick={() => setShowAuth((v) => !v)}
-          className="self-start text-[11px] text-white/50 underline-offset-2 hover:text-white hover:underline"
+          className="self-start text-[11px] text-slate-400 underline-offset-2 hover:text-slate-900 hover:underline"
         >
           {showAuth ? "− hide auth header" : "+ add auth header (optional)"}
         </button>
@@ -205,13 +205,13 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
             placeholder="Authorization header value, e.g. Bearer sk-…"
             value={authorization}
             onChange={(e) => setAuthorization(e.target.value)}
-            className="rounded border border-[#27272a] bg-black px-2 py-1 font-mono text-xs text-white outline-none placeholder:text-white/30 focus:border-white"
+            className="rounded border border-slate-200 bg-white px-2 py-1 font-mono text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
           />
         )}
       </div>
 
       {!isReadOnly && confirmed && (
-        <p className="rounded border border-[#fb923c]/50 bg-[#fb923c]/5 px-2 py-1.5 text-[11px] text-[#fb923c]">
+        <p className="rounded border border-orange-300 bg-orange-50 px-2 py-1.5 text-[11px] text-orange-600">
           This tool isn&apos;t marked read-only and may change state on the server. Click Run again to confirm.
         </p>
       )}
@@ -221,7 +221,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
           type="button"
           onClick={handleRunClick}
           disabled={running}
-          className="rounded border border-[#fb923c] px-3 py-1 text-xs font-bold text-[#fb923c] transition-colors hover:bg-[#fb923c] hover:text-black disabled:opacity-50"
+          className="rounded border border-orange-500 px-3 py-1 text-xs font-bold text-orange-600 transition-colors hover:bg-orange-600 hover:text-white disabled:opacity-50"
         >
           {running ? "Running…" : !isReadOnly && confirmed ? "Confirm & run" : "Run"}
         </button>
@@ -233,7 +233,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
               setError(null);
               setConfirmed(false);
             }}
-            className="text-[11px] text-white/50 hover:text-white"
+            className="text-[11px] text-slate-400 hover:text-slate-900"
           >
             clear
           </button>
@@ -241,20 +241,20 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
       </div>
 
       {error && (
-        <p className="rounded border border-red-400/60 px-2 py-1.5 text-xs text-red-400">{error}</p>
+        <p className="rounded border border-red-200 px-2 py-1.5 text-xs text-red-600">{error}</p>
       )}
 
       {response && (
         <div className="flex flex-col gap-2">
           {response.isError && (
-            <p className="text-xs font-medium text-red-400">The tool returned an error result.</p>
+            <p className="text-xs font-medium text-red-600">The tool returned an error result.</p>
           )}
           {response.content?.map((block, i) => {
             if (block.type === "text") {
               return (
                 <pre
                   key={i}
-                  className="max-h-64 overflow-auto rounded border border-[#27272a] bg-black p-2 text-xs text-white/80"
+                  className="max-h-64 overflow-auto rounded border border-slate-200 bg-white p-2 text-xs text-slate-700"
                 >
                   {(block as { text: string }).text}
                 </pre>
@@ -268,23 +268,23 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                   key={i}
                   src={`data:${img.mimeType};base64,${img.data}`}
                   alt="tool result"
-                  className="max-h-64 w-fit rounded border border-[#27272a]"
+                  className="max-h-64 w-fit rounded border border-slate-200"
                 />
               );
             }
             return (
               <pre
                 key={i}
-                className="max-h-64 overflow-auto rounded border border-[#27272a] bg-black p-2 text-xs text-white/60"
+                className="max-h-64 overflow-auto rounded border border-slate-200 bg-white p-2 text-xs text-slate-500"
               >
                 {JSON.stringify(block, null, 2)}
               </pre>
             );
           })}
           {response.structuredContent != null && (
-            <details className="text-xs text-white/50">
-              <summary className="cursor-pointer select-none hover:text-white">Structured content</summary>
-              <pre className="mt-1 max-h-64 overflow-auto rounded border border-[#27272a] bg-black p-2 text-white/70">
+            <details className="text-xs text-slate-400">
+              <summary className="cursor-pointer select-none hover:text-slate-900">Structured content</summary>
+              <pre className="mt-1 max-h-64 overflow-auto rounded border border-slate-200 bg-white p-2 text-slate-600">
                 {JSON.stringify(response.structuredContent, null, 2)}
               </pre>
             </details>
