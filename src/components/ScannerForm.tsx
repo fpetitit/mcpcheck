@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { ScanResult } from "@/lib/mcp/types";
 import { EXAMPLE_SERVERS } from "@/lib/exampleServers";
@@ -10,13 +11,30 @@ import { CheckCard } from "./CheckCard";
 import { AxisRadar } from "./AxisRadar";
 import { ToolsList } from "./ToolsList";
 
-export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
-  const [url, setUrl] = useState(initialUrl ?? "");
+export function ScannerForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const urlParam = searchParams.get("url") ?? "";
+
+  const [url, setUrl] = useState(urlParam);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [badgeCopied, setBadgeCopied] = useState(false);
   const [expandedChecks, setExpandedChecks] = useState<Set<string>>(new Set());
+  const [trackedParam, setTrackedParam] = useState(urlParam);
+
+  // When the ?url= param changes (deep link, back/forward, or a new scan), reset
+  // the view to match it during render — the actual (async) scan is kicked off by
+  // the effect below. Adjusting state in render is React's recommended pattern
+  // over a state-syncing effect.
+  if (urlParam !== trackedParam) {
+    setTrackedParam(urlParam);
+    setUrl(urlParam);
+    setResult(null);
+    setError(null);
+    setExpandedChecks(new Set());
+  }
 
   function toggleCheck(id: string) {
     setExpandedChecks((prev) => {
@@ -33,11 +51,13 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
     setTimeout(() => setBadgeCopied(false), 1500);
   }
 
+  // The scanned target is driven entirely by the ?url= query param: scans are
+  // therefore bookmarkable, and browser back/forward replays them.
   useEffect(() => {
-    if (initialUrl) {
-      runScan(initialUrl);
+    if (urlParam) {
+      runScan(urlParam);
     }
-  }, [initialUrl]);
+  }, [urlParam]);
 
   async function runScan(targetUrl: string) {
     setLoading(true);
@@ -63,14 +83,27 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
     }
   }
 
+  // Navigating to ?url=<target> is what triggers a scan (via the effect above),
+  // which is what makes each scan a real, shareable history entry. Re-scanning
+  // the same target is the one case the URL won't change, so we run it directly.
+  function goScan(targetUrl: string) {
+    const trimmed = targetUrl.trim();
+    if (!trimmed) return;
+    if (trimmed === urlParam) {
+      runScan(trimmed);
+    } else {
+      router.push(`/?url=${encodeURIComponent(trimmed)}`);
+    }
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    runScan(url);
+    goScan(url);
   }
 
   function handleExampleClick(exampleUrl: string) {
     setUrl(exampleUrl);
-    runScan(exampleUrl);
+    goScan(exampleUrl);
   }
 
   function handleSelfScan() {
