@@ -22,7 +22,7 @@ export function ScorecardShare({
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
           share this scorecard
         </p>
         <div className="flex gap-2">
@@ -42,7 +42,7 @@ export function ScorecardShare({
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
           embed on your site
         </p>
         <div className="flex gap-2">
@@ -63,7 +63,7 @@ export function ScorecardShare({
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+        <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
           markdown badge (for your README)
         </p>
         <div className="flex gap-2">

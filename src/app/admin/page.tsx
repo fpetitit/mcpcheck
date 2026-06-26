@@ -20,7 +20,7 @@ export default async function AdminPage({
   const recentScans = authenticated ? await getRecentScans(50) : [];
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16 font-mono">
+    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
       <div className="flex w-full max-w-md flex-col items-center gap-3 text-center">
         <h1 className="glow-green text-3xl font-bold tracking-tight text-[#4ade80]">
           &gt; Admin_
@@ -32,7 +32,7 @@ export default async function AdminPage({
           action={login}
           className="mt-10 flex w-full max-w-sm flex-col gap-3 rounded-lg border border-[#1f3a28] bg-black p-6"
         >
-          <label htmlFor="password" className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+          <label htmlFor="password" className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
             password
           </label>
           <input
@@ -54,7 +54,7 @@ export default async function AdminPage({
       ) : (
         <div className="mt-10 flex w-full max-w-3xl flex-col gap-4">
           <div className="flex items-center justify-between gap-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/50">
+            <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
               recent scans ({recentScans.length})
             </p>
             <form action={logout}>
@@ -69,13 +69,13 @@ export default async function AdminPage({
 
           <div className="overflow-x-auto rounded-lg border border-[#1f3a28]">
             {recentScans.length === 0 ? (
-              <p className="p-6 text-center text-sm text-[#4ade80]/50">
+              <p className="p-6 text-center text-sm text-[#4ade80]/60">
                 No scans recorded yet, or no database configured for this deployment.
               </p>
             ) : (
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[#1f3a28] text-[#4ade80]/50">
+                  <tr className="border-b border-[#1f3a28] text-[#4ade80]/60">
                     <th className="px-4 py-2 font-medium">Target</th>
                     <th className="px-4 py-2 font-medium">Scanned at</th>
                     <th className="px-4 py-2 text-right font-medium">Score</th>
@@ -85,7 +85,7 @@ export default async function AdminPage({
                 <tbody>
                   {recentScans.map((scan, i) => (
                     <tr key={`${scan.target}-${scan.scannedAt}-${i}`} className="border-b border-[#1f3a28]/40">
-                      <td className="max-w-xs truncate px-4 py-2 text-[#4ade80]/80" title={scan.target}>
+                      <td className="max-w-xs truncate px-4 py-2 font-mono text-[#4ade80]/80" title={scan.target}>
                         {scan.target}
                       </td>
                       <td className="px-4 py-2 text-[#4ade80]/60">{new Date(scan.scannedAt).toLocaleString()}</td>

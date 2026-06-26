@@ -181,7 +181,7 @@ function findingPenaltyRow(severity: string, penalty: number) {
 
 export default function MethodologyPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16 font-mono">
+    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
       <div className="flex w-full max-w-3xl flex-col items-center gap-3 text-center">
         <h1 className="glow-green text-3xl font-bold tracking-tight text-[#4ade80]">
           &gt; Methodology_
@@ -238,7 +238,7 @@ export default function MethodologyPage() {
         <div className="mt-4 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-left text-[#4ade80]/50">
+              <tr className="text-left text-[#4ade80]/60">
                 <th className="pb-1.5 font-medium">Check status</th>
                 <th className="pb-1.5 text-right font-medium">Penalty</th>
               </tr>
@@ -252,7 +252,7 @@ export default function MethodologyPage() {
           </table>
           <table className="w-full text-xs">
             <thead>
-              <tr className="text-left text-[#4ade80]/50">
+              <tr className="text-left text-[#4ade80]/60">
                 <th className="pb-1.5 font-medium">Finding severity</th>
                 <th className="pb-1.5 text-right font-medium">Penalty</th>
               </tr>
@@ -266,7 +266,7 @@ export default function MethodologyPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-4 text-xs text-[#4ade80]/50">
+        <p className="mt-4 text-xs text-[#4ade80]/60">
           Grades: A &ge; 90, B &ge; 75, C &ge; 60, D &ge; 40, F below 40 &mdash; applied to the final
           weighted score.
         </p>
@@ -286,7 +286,7 @@ export default function MethodologyPage() {
               <p className="mt-2 text-xs text-[#4ade80]/70">{check.summary}</p>
               <ul className="mt-3 flex flex-col gap-1.5">
                 {check.details.map((detail, i) => (
-                  <li key={i} className="text-xs leading-relaxed text-[#4ade80]/50">
+                  <li key={i} className="text-xs leading-relaxed text-[#4ade80]/60">
                     &middot; {detail}
                   </li>
                 ))}

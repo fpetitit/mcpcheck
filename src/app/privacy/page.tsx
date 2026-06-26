@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16 font-mono">
+    <div className="flex min-h-screen flex-col items-center bg-black px-6 py-16">
       <div className="flex w-full max-w-2xl flex-col items-center gap-3 text-center">
         <h1 className="glow-green text-3xl font-bold tracking-tight text-[#4ade80]">
           &gt; Privacy Policy_
