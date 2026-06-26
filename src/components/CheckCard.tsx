@@ -1,21 +1,25 @@
-"use client";
-
-import { useState } from "react";
 import type { CheckResult } from "@/lib/mcp/types";
 import { SEVERITY_BORDER_TEXT } from "@/lib/severityStyle";
 import { StatusBadge } from "./StatusBadge";
 
-export function CheckCard({ check }: { check: CheckResult }) {
+export function CheckCard({
+  check,
+  expanded,
+  onToggle,
+}: {
+  check: CheckResult;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
   // Per-tool findings are surfaced inline on each tool in the dedicated tools
   // section instead, so they're dropped here to avoid showing them twice.
   const serverLevelFindings = check.findings?.filter((f) => !f.toolName) ?? [];
-  const [expanded, setExpanded] = useState(false);
 
   return (
     <div className="rounded-lg border border-[#27272a] bg-black shadow-[0_0_10px_rgba(255,255,255,0.06)]">
       <button
         type="button"
-        onClick={() => setExpanded((v) => !v)}
+        onClick={onToggle}
         className="flex w-full items-center justify-between gap-2 px-5 py-3 text-left"
       >
         <div className="flex items-center gap-2">
