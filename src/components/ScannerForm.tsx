@@ -16,6 +16,16 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [badgeCopied, setBadgeCopied] = useState(false);
+  const [expandedChecks, setExpandedChecks] = useState<Set<string>>(new Set());
+
+  function toggleCheck(id: string) {
+    setExpandedChecks((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
 
   async function copyBadgeSnippet(snippet: string) {
     await navigator.clipboard.writeText(snippet);
@@ -44,6 +54,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
         setError(json.error ?? "Scan failed.");
       } else {
         setResult(json as ScanResult);
+        setExpandedChecks(new Set());
       }
     } catch {
       setError("Network error while contacting the scan API.");
@@ -195,9 +206,30 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
             );
           })()}
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            {(() => {
+              const allExpanded = result.checks.every((c) => expandedChecks.has(c.id));
+              return (
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setExpandedChecks(allExpanded ? new Set() : new Set(result.checks.map((c) => c.id)))
+                    }
+                    className="text-xs text-white/50 underline-offset-2 hover:text-white hover:underline"
+                  >
+                    {allExpanded ? "Collapse all" : "Expand all"}
+                  </button>
+                </div>
+              );
+            })()}
             {result.checks.map((check) => (
-              <CheckCard key={check.id} check={check} />
+              <CheckCard
+                key={check.id}
+                check={check}
+                expanded={expandedChecks.has(check.id)}
+                onToggle={() => toggleCheck(check.id)}
+              />
             ))}
           </div>
         </div>
