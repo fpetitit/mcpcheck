@@ -195,7 +195,7 @@ export function ScannerForm({ initialUrl }: { initialUrl?: string }) {
             );
           })()}
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="flex flex-col gap-2">
             {result.checks.map((check) => (
               <CheckCard key={check.id} check={check} />
             ))}
