@@ -42,7 +42,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
   if (!url) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-black px-6 py-16 text-center">
-        <p className="text-[#4ade80]/70">Missing a server to score.</p>
+        <p className="text-white/70">Missing a server to score.</p>
         <Link href="/" className="text-[#fb923c] underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
@@ -92,7 +92,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
         </Link>
       </div>
 
-      <div className="mt-10 flex w-full max-w-2xl flex-col items-center gap-7 rounded-lg border border-[#1f3a28] bg-black p-9 shadow-[0_0_12px_rgba(74,222,128,0.1)]">
+      <div className="mt-10 flex w-full max-w-2xl flex-col items-center gap-7 rounded-lg border border-[#27272a] bg-black p-9 shadow-[0_0_12px_rgba(255,255,255,0.08)]">
         <div
           className="flex h-32 w-32 items-center justify-center rounded-full border-4 text-5xl font-bold"
           style={{ borderColor: color, color }}
@@ -106,7 +106,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
           </p>
         </div>
 
-        <div className="flex gap-4 text-xs text-[#4ade80]/60">
+        <div className="flex gap-4 text-xs text-white/60">
           <span>{counts.ok} ok</span>
           <span>{counts.warning} warning</span>
           <span>{counts.error} error</span>
@@ -117,7 +117,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
 
         <Link
           href={`/?url=${encodeURIComponent(url)}`}
-          className="rounded-lg border border-[#4ade80]/40 px-4 py-2 text-xs font-medium text-[#4ade80] transition-colors hover:border-[#4ade80] hover:bg-[#4ade80]/10"
+          className="rounded-lg border border-white/40 px-4 py-2 text-xs font-medium text-white transition-colors hover:border-white hover:bg-white/10"
         >
           View full scan results &rarr;
         </Link>

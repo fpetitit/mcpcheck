@@ -14,7 +14,7 @@ export default async function Home({
         <h1 className="glow-green text-4xl font-bold tracking-tight text-[#4ade80]">
           &gt; MCPCheckup_
         </h1>
-        <p className="max-w-xl text-sm text-[#4ade80]/70">
+        <p className="max-w-xl text-sm text-white/70">
           Inspect any remote MCP server: handshake, capabilities, exposed tools,{" "}
           <span className="text-[#fb923c]">security heuristics</span>, TLS/network posture, and
           license information &mdash; in one scan.
@@ -39,11 +39,11 @@ export default async function Home({
         <ScannerForm initialUrl={url} />
       </div>
 
-      <p className="mt-16 max-w-xl text-center text-xs text-[#4ade80]/60">
+      <p className="mt-16 max-w-xl text-center text-xs text-white/60">
         MCPCheckup is itself an MCP server &mdash; point an MCP client at{" "}
-        <code className="text-[#4ade80]/70">/api/mcp</code> to call{" "}
-        <code className="text-[#4ade80]/70">scan_mcp_server</code> and{" "}
-        <code className="text-[#4ade80]/70">create_scorecard</code> as tools.
+        <code className="text-white/70">/api/mcp</code> to call{" "}
+        <code className="text-white/70">scan_mcp_server</code> and{" "}
+        <code className="text-white/70">create_scorecard</code> as tools.
       </p>
     </div>
   );

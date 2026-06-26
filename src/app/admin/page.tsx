@@ -30,9 +30,9 @@ export default async function AdminPage({
       {!authenticated ? (
         <form
           action={login}
-          className="mt-10 flex w-full max-w-sm flex-col gap-3 rounded-lg border border-[#1f3a28] bg-black p-6"
+          className="mt-10 flex w-full max-w-sm flex-col gap-3 rounded-lg border border-[#27272a] bg-black p-6"
         >
-          <label htmlFor="password" className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
+          <label htmlFor="password" className="text-xs font-medium uppercase tracking-wide text-white/60">
             password
           </label>
           <input
@@ -41,7 +41,7 @@ export default async function AdminPage({
             type="password"
             required
             autoFocus
-            className="rounded-lg border border-[#1f3a28] bg-black px-4 py-2 font-mono text-sm text-[#4ade80] outline-none focus:border-[#4ade80]"
+            className="rounded-lg border border-[#27272a] bg-black px-4 py-2 font-mono text-sm text-white outline-none focus:border-white"
           />
           {error && <p className="text-xs text-[#fb923c]">Access denied.</p>}
           <button
@@ -54,28 +54,28 @@ export default async function AdminPage({
       ) : (
         <div className="mt-10 flex w-full max-w-3xl flex-col gap-4">
           <div className="flex items-center justify-between gap-3">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#4ade80]/60">
+            <p className="text-xs font-medium uppercase tracking-wide text-white/60">
               recent scans ({recentScans.length})
             </p>
             <form action={logout}>
               <button
                 type="submit"
-                className="rounded-lg border border-[#4ade80]/40 px-3 py-1.5 text-xs font-medium text-[#4ade80] transition-colors hover:border-[#4ade80] hover:bg-[#4ade80]/10"
+                className="rounded-lg border border-white/40 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:border-white hover:bg-white/10"
               >
                 Log out
               </button>
             </form>
           </div>
 
-          <div className="overflow-x-auto rounded-lg border border-[#1f3a28]">
+          <div className="overflow-x-auto rounded-lg border border-[#27272a]">
             {recentScans.length === 0 ? (
-              <p className="p-6 text-center text-sm text-[#4ade80]/60">
+              <p className="p-6 text-center text-sm text-white/60">
                 No scans recorded yet, or no database configured for this deployment.
               </p>
             ) : (
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[#1f3a28] text-[#4ade80]/60">
+                  <tr className="border-b border-[#27272a] text-white/60">
                     <th className="px-4 py-2 font-medium">Target</th>
                     <th className="px-4 py-2 font-medium">Scanned at</th>
                     <th className="px-4 py-2 text-right font-medium">Score</th>
@@ -84,12 +84,12 @@ export default async function AdminPage({
                 </thead>
                 <tbody>
                   {recentScans.map((scan, i) => (
-                    <tr key={`${scan.target}-${scan.scannedAt}-${i}`} className="border-b border-[#1f3a28]/40">
-                      <td className="max-w-xs truncate px-4 py-2 font-mono text-[#4ade80]/80" title={scan.target}>
+                    <tr key={`${scan.target}-${scan.scannedAt}-${i}`} className="border-b border-[#27272a]/40">
+                      <td className="max-w-xs truncate px-4 py-2 font-mono text-white/80" title={scan.target}>
                         {scan.target}
                       </td>
-                      <td className="px-4 py-2 text-[#4ade80]/60">{new Date(scan.scannedAt).toLocaleString()}</td>
-                      <td className="px-4 py-2 text-right text-[#4ade80]/80">{scan.score}</td>
+                      <td className="px-4 py-2 text-white/60">{new Date(scan.scannedAt).toLocaleString()}</td>
+                      <td className="px-4 py-2 text-right text-white/80">{scan.score}</td>
                       <td
                         className="px-4 py-2 text-right font-bold"
                         style={{ color: gradeColor(scan.grade) }}
