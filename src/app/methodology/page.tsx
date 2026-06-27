@@ -84,7 +84,7 @@ const CHECKS: CheckDoc[] = [
     details: [
       "Tool descriptions are model-facing context, not documentation for a human — an LLM reads them before it ever decides which tool to call. This check scans tool descriptions, individual parameter descriptions, and the server's connection-time `instructions` for prompt-injection phrasing (e.g. \"ignore previous instructions\", \"do not tell the user\", fake `<system>` tags).",
       "Scans the same text for hidden/invisible Unicode characters (zero-width spaces, bidirectional overrides) that can hide instructions from a human reviewer while remaining fully readable to the model.",
-      "Flags tool names/descriptions that suggest a sensitive capability (code execution, filesystem writes, arbitrary network requests, privilege escalation) so reviewers know to check the actual access scope.",
+      "Flags tool names/descriptions that suggest a sensitive capability (code execution, filesystem writes, arbitrary network requests, privilege escalation) so reviewers know to check the actual access scope. This is informational only — having a capability isn't a flaw, so it carries no score penalty.",
       "Flags tools with little or no description, since an unreviewable tool is a smaller version of the same problem.",
       "Flags plain HTTP transport (no TLS), since traffic — including any auth tokens — travels unencrypted.",
     ],
@@ -234,6 +234,15 @@ export default function MethodologyPage() {
           Each axis starts at 100. For every check in that axis, MCPCheckup subtracts a penalty for
           the check&apos;s overall status, plus a penalty for every individual finding it raised,
           based on severity. The result is clamped to 0&ndash;100.
+        </p>
+        <p className="mt-3 text-sm text-slate-600">
+          To avoid over-penalizing servers with many tools, the combined penalty from a single
+          check&apos;s <span className="font-medium">minor</span> findings (info / low / medium) is
+          capped at 20 per check &mdash; flagging the same small issue across ten tools can&apos;t
+          drain an axis on its own. <span className="font-medium">High</span> and{" "}
+          <span className="font-medium">critical</span> findings are never capped: those are the
+          ones meant to be able to tank a score. Informational findings carry no penalty at all
+          &mdash; they&apos;re surfaced for review, not scored.
         </p>
         <div className="mt-4 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
           <table className="w-full text-xs">
