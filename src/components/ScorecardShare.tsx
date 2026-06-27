@@ -22,19 +22,19 @@ export function ScorecardShare({
   return (
     <div className="flex w-full flex-col gap-5">
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-white/60">
+        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
           share this scorecard
         </p>
         <div className="flex gap-2">
           <input
             readOnly
             value={scorecardUrl}
-            className="flex-1 truncate rounded-lg border border-[#27272a] bg-black px-3 py-2 font-mono text-xs text-white/80"
+            className="flex-1 truncate rounded-lg border border-slate-200 bg-white px-3 py-2 font-mono text-xs text-slate-700"
           />
           <button
             type="button"
             onClick={() => copy(scorecardUrl, "link")}
-            className="rounded-lg border border-white/40 px-4 py-2 text-xs font-medium text-white transition-colors hover:border-white hover:bg-white/10"
+            className="rounded-lg border border-slate-300 px-4 py-2 text-xs font-medium text-slate-900 transition-colors hover:border-slate-400 hover:bg-slate-100"
           >
             {copied === "link" ? "Copied!" : "Copy link"}
           </button>
@@ -42,7 +42,7 @@ export function ScorecardShare({
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-white/60">
+        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
           embed on your site
         </p>
         <div className="flex gap-2">
@@ -50,12 +50,12 @@ export function ScorecardShare({
             readOnly
             rows={3}
             value={embedSnippet}
-            className="flex-1 resize-none rounded-lg border border-[#27272a] bg-black px-3 py-2 font-mono text-xs text-white/80"
+            className="flex-1 resize-none rounded-lg border border-slate-200 bg-white px-3 py-2 font-mono text-xs text-slate-700"
           />
           <button
             type="button"
             onClick={() => copy(embedSnippet, "embed")}
-            className="self-start rounded-lg border border-[#fb923c] px-4 py-2 text-xs font-medium text-[#fb923c] transition-colors hover:bg-[#fb923c] hover:text-black"
+            className="self-start rounded-lg border border-orange-500 px-4 py-2 text-xs font-medium text-orange-600 transition-colors hover:bg-orange-600 hover:text-white"
           >
             {copied === "embed" ? "Copied!" : "Copy embed code"}
           </button>
@@ -63,7 +63,7 @@ export function ScorecardShare({
       </div>
 
       <div className="flex flex-col gap-2">
-        <p className="text-xs font-medium uppercase tracking-wide text-white/60">
+        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
           markdown badge (for your README)
         </p>
         <div className="flex gap-2">
@@ -71,12 +71,12 @@ export function ScorecardShare({
             readOnly
             rows={2}
             value={badgeSnippet}
-            className="flex-1 resize-none rounded-lg border border-[#27272a] bg-black px-3 py-2 font-mono text-xs text-white/80"
+            className="flex-1 resize-none rounded-lg border border-slate-200 bg-white px-3 py-2 font-mono text-xs text-slate-700"
           />
           <button
             type="button"
             onClick={() => copy(badgeSnippet, "badge")}
-            className="self-start rounded-lg border border-white/40 px-4 py-2 text-xs font-medium text-white transition-colors hover:border-white hover:bg-white/10"
+            className="self-start rounded-lg border border-slate-300 px-4 py-2 text-xs font-medium text-slate-900 transition-colors hover:border-slate-400 hover:bg-slate-100"
           >
             {copied === "badge" ? "Copied!" : "Copy badge"}
           </button>

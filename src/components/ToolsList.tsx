@@ -16,10 +16,10 @@ const ANNOTATION_HINTS: Array<{
   label: string;
   style: string;
 }> = [
-  { key: "destructiveHint", label: "destructive", style: "border-red-400/60 text-red-400" },
-  { key: "readOnlyHint", label: "read-only", style: "border-white/60 text-white" },
-  { key: "idempotentHint", label: "idempotent", style: "border-white/40 text-white/80" },
-  { key: "openWorldHint", label: "open-world", style: "border-[#fb923c]/60 text-[#fb923c]" },
+  { key: "destructiveHint", label: "destructive", style: "border-red-200 text-red-600" },
+  { key: "readOnlyHint", label: "read-only", style: "border-slate-300 text-slate-900" },
+  { key: "idempotentHint", label: "idempotent", style: "border-slate-300 text-slate-700" },
+  { key: "openWorldHint", label: "open-world", style: "border-orange-300 text-orange-600" },
 ];
 
 function ToolEntry({ tool, findings, target }: { tool: Tool; findings: Finding[]; target?: string }) {
@@ -36,7 +36,7 @@ function ToolEntry({ tool, findings, target }: { tool: Tool; findings: Finding[]
   const worstSeverityDot = worstSeverity ? SEVERITY_DOT[worstSeverity] : null;
 
   return (
-    <li className="rounded-lg border border-[#27272a] bg-black/40">
+    <li className="rounded-lg border border-slate-200 bg-slate-50">
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
@@ -46,7 +46,7 @@ function ToolEntry({ tool, findings, target }: { tool: Tool; findings: Finding[]
           {worstSeverityDot && (
             <span className={`h-1.5 w-1.5 rounded-full ${worstSeverityDot}`} title={`${findings.length} finding(s)`} />
           )}
-          <span className="font-mono text-sm text-white">{tool.name}</span>
+          <span className="font-mono text-sm text-slate-900">{tool.name}</span>
           {activeHints.map((h) => (
             <span
               key={h.key}
@@ -55,34 +55,34 @@ function ToolEntry({ tool, findings, target }: { tool: Tool; findings: Finding[]
               {h.label}
             </span>
           ))}
-          <span className="text-xs text-white/50">
+          <span className="text-xs text-slate-400">
             {paramNames.length === 0 ? "no params" : `${paramNames.length} param${paramNames.length > 1 ? "s" : ""}`}
           </span>
           {findings.length > 0 && (
-            <span className="text-xs text-white/50">
+            <span className="text-xs text-slate-400">
               &middot; {findings.length} finding{findings.length > 1 ? "s" : ""}
             </span>
           )}
         </div>
-        <span className="text-xs text-white/50">{expanded ? "▾" : "▸"}</span>
+        <span className="text-xs text-slate-400">{expanded ? "▾" : "▸"}</span>
       </button>
 
       {expanded && (
-        <div className="flex flex-col gap-3 border-t border-[#27272a] px-3 py-2">
-          {tool.description && <p className="text-sm text-white/70">{tool.description}</p>}
+        <div className="flex flex-col gap-3 border-t border-slate-200 px-3 py-2">
+          {tool.description && <p className="text-sm text-slate-600">{tool.description}</p>}
           {paramNames.length > 0 && (
             <ul className="flex flex-col gap-1">
               {paramNames.map((name) => (
                 <li key={name} className="flex flex-wrap items-baseline gap-2 text-xs">
-                  <span className="font-mono text-white/90">{name}</span>
+                  <span className="font-mono text-slate-800">{name}</span>
                   {properties[name].type && (
-                    <span className="text-white/50">{properties[name].type}</span>
+                    <span className="text-slate-400">{properties[name].type}</span>
                   )}
                   {required.has(name) && (
-                    <span className="text-[#fb923c]">required</span>
+                    <span className="text-orange-600">required</span>
                   )}
                   {properties[name].description && (
-                    <span className="text-white/60">— {properties[name].description}</span>
+                    <span className="text-slate-500">— {properties[name].description}</span>
                   )}
                 </li>
               ))}
@@ -94,10 +94,10 @@ function ToolEntry({ tool, findings, target }: { tool: Tool; findings: Finding[]
               {findings.map((f, i) => (
                 <li
                   key={i}
-                  className={`border-l-2 pl-3 text-xs ${SEVERITY_BORDER_TEXT[f.severity] ?? "border-l-white/30"}`}
+                  className={`border-l-2 pl-3 text-xs ${SEVERITY_BORDER_TEXT[f.severity] ?? "border-l-slate-300"}`}
                 >
                   <span className="font-medium">{f.title}</span>
-                  <p className="text-white/65">{f.detail}</p>
+                  <p className="text-slate-600">{f.detail}</p>
                 </li>
               ))}
             </ul>
@@ -150,11 +150,11 @@ export function ToolsList({
           placeholder="filter tools by name or description…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="rounded-lg border border-[#27272a] bg-black px-3 py-2 text-sm text-white outline-none placeholder:text-white/40 focus:border-white"
+          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
         />
       )}
       {filteredTools.length === 0 ? (
-        <p className="text-sm text-white/50">No tools match &ldquo;{query}&rdquo;.</p>
+        <p className="text-sm text-slate-400">No tools match &ldquo;{query}&rdquo;.</p>
       ) : (
         <ul className="flex flex-col gap-2">
           {filteredTools.map((tool) => (
