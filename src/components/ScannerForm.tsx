@@ -119,12 +119,12 @@ export function ScannerForm() {
           placeholder="https://example.com/mcp"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+          className="flex-1 rounded-lg border border-slate-200 bg-white px-4 py-3 font-mono text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
         />
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg border border-orange-500 bg-white px-6 py-3 text-sm font-bold text-orange-600 transition-colors hover:bg-orange-600 hover:text-white disabled:opacity-50"
+          className="rounded-lg border border-indigo-500 bg-white px-6 py-3 text-sm font-bold text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white disabled:opacity-50"
         >
           {loading ? "Scanning…" : "Scan"}
         </button>
@@ -152,7 +152,7 @@ export function ScannerForm() {
             title="Scan MCPCheckup's own MCP server, eating its own dog food."
             disabled={loading}
             onClick={handleSelfScan}
-            className="rounded-lg border border-orange-300 px-3 py-1.5 text-xs font-medium text-orange-600 transition-colors hover:border-orange-500 hover:bg-orange-100 disabled:opacity-50"
+            className="rounded-lg border border-indigo-300 px-3 py-1.5 text-xs font-medium text-indigo-600 transition-colors hover:border-indigo-500 hover:bg-indigo-100 disabled:opacity-50"
           >
             Scan MCPCheckup itself
           </button>
@@ -160,7 +160,7 @@ export function ScannerForm() {
       </div>
 
       {error && (
-        <p className="rounded-lg border border-orange-500 bg-white p-4 text-sm text-orange-600">
+        <p className="rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-red-600">
           {error}
         </p>
       )}
@@ -181,19 +181,19 @@ export function ScannerForm() {
               </span>
               <Link
                 href={`/scorecard?url=${encodeURIComponent(result.target)}`}
-                className="rounded-lg border border-orange-500 px-3 py-1.5 text-xs font-bold text-orange-600 transition-colors hover:bg-orange-600 hover:text-white"
+                className="rounded-lg border border-indigo-500 px-3 py-1.5 text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white"
               >
                 Get shareable scorecard &rarr;
               </Link>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 rounded-lg border border-dashed border-orange-300 bg-orange-50 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 rounded-lg border border-dashed border-indigo-300 bg-indigo-50 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
-              <p className="text-xs font-bold uppercase tracking-wide text-orange-600">
+              <p className="text-xs font-bold uppercase tracking-wide text-indigo-600">
                 is this your MCP server?
               </p>
-              <p className="text-xs text-orange-600/80">
+              <p className="text-xs text-indigo-600/80">
                 Flex the score. Drop this badge in your README and let it auto-update on every rescan.
               </p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -210,7 +210,7 @@ export function ScannerForm() {
                   `[![MCPCheckup](${window.location.origin}/api/badge?url=${encodeURIComponent(result.target)})](${window.location.origin}/scorecard?url=${encodeURIComponent(result.target)})`,
                 )
               }
-              className="shrink-0 rounded-lg border border-orange-500 px-4 py-2 text-xs font-bold text-orange-600 transition-colors hover:bg-orange-600 hover:text-white"
+              className="shrink-0 rounded-lg border border-indigo-500 px-4 py-2 text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white"
             >
               {badgeCopied ? "Copied! Go paste it." : "Copy badge for README"}
             </button>

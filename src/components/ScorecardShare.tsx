@@ -55,7 +55,7 @@ export function ScorecardShare({
           <button
             type="button"
             onClick={() => copy(embedSnippet, "embed")}
-            className="self-start rounded-lg border border-orange-500 px-4 py-2 text-xs font-medium text-orange-600 transition-colors hover:bg-orange-600 hover:text-white"
+            className="self-start rounded-lg border border-indigo-500 px-4 py-2 text-xs font-medium text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white"
           >
             {copied === "embed" ? "Copied!" : "Copy embed code"}
           </button>

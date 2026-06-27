@@ -11,22 +11,22 @@ export default function Home() {
         </h1>
         <p className="max-w-xl text-sm text-slate-600">
           Inspect any remote MCP server: handshake, capabilities, exposed tools,{" "}
-          <span className="text-orange-600">security heuristics</span>, TLS/network posture, and
+          <span className="text-indigo-600">security heuristics</span>, TLS/network posture, and
           license information &mdash; in one scan.
         </p>
         <Link
           href="/servers"
-          className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline"
+          className="text-xs font-medium text-indigo-600 underline-offset-4 hover:underline"
         >
           Browse public MCP servers directory &rarr;
         </Link>
         <Link
           href="/methodology"
-          className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline"
+          className="text-xs font-medium text-indigo-600 underline-offset-4 hover:underline"
         >
           How scoring works &rarr;
         </Link>
-        <p className="mt-4 rounded-lg border border-orange-200 bg-orange-50 px-4 py-2 text-xs text-orange-600">
+        <p className="mt-4 rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-2 text-xs text-indigo-600">
           Built your own MCP server? Scan it below and earn a live badge for your README.
         </p>
       </div>
