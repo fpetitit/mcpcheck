@@ -55,8 +55,11 @@ export async function checkNetwork(ctx: ScanContext): Promise<CheckResult> {
 
   if (ctx.url.protocol === "https:") {
     if (!cert) {
+      // Informational, not a penalty: many healthy HTTPS servers simply don't
+      // answer a bare HEAD on the MCP path, so this is a probe limitation on our
+      // side rather than evidence of a server-side TLS problem.
       findings.push({
-        severity: "medium",
+        severity: "info",
         title: "Could not retrieve TLS certificate details",
         detail: "The server may not support a plain HTTPS HEAD request on this path.",
       });
@@ -99,7 +102,11 @@ export async function checkNetwork(ctx: ScanContext): Promise<CheckResult> {
   return {
     id: "network",
     title: "Network & TLS",
-    status: findings.some((f) => f.severity === "critical" || f.severity === "high") ? "error" : findings.length > 0 ? "warning" : "ok",
+    status: findings.some((f) => f.severity === "critical" || f.severity === "high")
+      ? "error"
+      : findings.some((f) => f.severity === "low" || f.severity === "medium")
+        ? "warning"
+        : "ok",
     summary:
       ctx.url.protocol === "https:"
         ? cert

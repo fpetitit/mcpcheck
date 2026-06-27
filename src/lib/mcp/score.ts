@@ -31,6 +31,12 @@ const STATUS_PENALTY: Record<CheckResult["status"], number> = {
   skipped: 0,
 };
 
+// Diminishing returns: minor findings (info/low/medium) from a single check are
+// summed but capped, so a check that flags the same small issue across many
+// tools can't linearly drain its axis to zero. Serious findings (high/critical)
+// always count in full — they're the ones that should be able to tank a score.
+const MINOR_FINDING_CAP = 20;
+
 const AXIS_FOR_CHECK: Record<string, Axis> = {
   security: "security",
   network: "security",
@@ -66,13 +72,25 @@ function gradeFor(value: number): Grade {
   return "F";
 }
 
+function findingPenaltyForCheck(check: CheckResult): number {
+  let serious = 0;
+  let minor = 0;
+  for (const finding of check.findings ?? []) {
+    const penalty = FINDING_PENALTY[finding.severity];
+    if (finding.severity === "high" || finding.severity === "critical") {
+      serious += penalty;
+    } else {
+      minor += penalty;
+    }
+  }
+  return serious + Math.min(minor, MINOR_FINDING_CAP);
+}
+
 function scoreForChecks(checks: CheckResult[]): number {
   let penalty = 0;
   for (const check of checks) {
     penalty += STATUS_PENALTY[check.status];
-    for (const finding of check.findings ?? []) {
-      penalty += FINDING_PENALTY[finding.severity];
-    }
+    penalty += findingPenaltyForCheck(check);
   }
   return Math.max(0, Math.min(100, Math.round(100 - penalty)));
 }

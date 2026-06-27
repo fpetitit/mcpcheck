@@ -95,8 +95,11 @@ function analyzeTool(tool: Tool): Finding[] {
 
   const dangerHits = scanText(`${tool.name} ${description}`, DANGEROUS_CAPABILITY_PATTERNS);
   if (dangerHits.length > 0) {
+    // Informational, not a penalty: a tool *having* a capability (fetch, write,
+    // execute…) isn't a vulnerability — it's a prompt to review whether the
+    // access is properly scoped. Scoring it would punish perfectly normal tools.
     findings.push({
-      severity: "medium",
+      severity: "info",
       title: `Tool "${tool.name}" may expose a sensitive capability`,
       detail: `Possible capability: ${dangerHits.join(", ")}. Review whether this tool's access is properly scoped and consented to.`,
       toolName: tool.name,
@@ -146,16 +149,15 @@ export async function checkSecurity(
     });
   }
 
-  const highest = findings.reduce<Finding["severity"] | null>((acc, f) => {
-    const order: Finding["severity"][] = ["info", "low", "medium", "high", "critical"];
-    if (!acc) return f.severity;
-    return order.indexOf(f.severity) > order.indexOf(acc) ? f.severity : acc;
-  }, null);
+  // Info-only findings are advisory, so they don't make the check "warning" —
+  // a server flagged solely for informational notes is still ok.
+  const hasSerious = findings.some((f) => f.severity === "high" || f.severity === "critical");
+  const hasConcern = findings.some((f) => f.severity === "low" || f.severity === "medium");
 
   return {
     id: "security",
     title: "Security Heuristics",
-    status: findings.length === 0 ? "ok" : highest === "high" || highest === "critical" ? "error" : "warning",
+    status: hasSerious ? "error" : hasConcern ? "warning" : "ok",
     summary:
       findings.length === 0
         ? "No obvious red flags detected in tool descriptions, parameters, instructions, or transport."
