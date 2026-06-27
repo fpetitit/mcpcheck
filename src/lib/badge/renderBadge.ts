@@ -31,11 +31,11 @@ export function renderBadge({ label, message, color }: { label: string; message:
   const messageCenter = labelWidth + messageWidth / 2;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalWidth}" height="${HEIGHT}" role="img" aria-label="${escapeXml(label)}: ${escapeXml(message)}">
-  <rect width="${labelWidth}" height="${HEIGHT}" fill="#000000"/>
+  <rect width="${labelWidth}" height="${HEIGHT}" fill="#0f172a"/>
   <rect x="${labelWidth}" width="${messageWidth}" height="${HEIGHT}" fill="${color}"/>
   <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">
-    <text x="${labelCenter}" y="14" fill="#4ade80">${escapeXml(label)}</text>
-    <text x="${messageCenter}" y="14" fill="#000000" font-weight="bold">${escapeXml(message)}</text>
+    <text x="${labelCenter}" y="14" fill="#ffffff">${escapeXml(label)}</text>
+    <text x="${messageCenter}" y="14" fill="#ffffff" font-weight="bold">${escapeXml(message)}</text>
   </g>
 </svg>`;
 }

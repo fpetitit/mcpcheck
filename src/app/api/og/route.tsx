@@ -24,7 +24,7 @@ function ogRadar(axes: AxisScore[], color: string, size = 220) {
           key={level}
           points={axes.map((_, i) => pointFor(level * 100, i).join(",")).join(" ")}
           fill="none"
-          stroke="#4ade8033"
+          stroke="#e2e8f0"
           strokeWidth={1}
         />
       ))}
@@ -71,13 +71,24 @@ export async function GET(request: Request) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#000000",
+          backgroundColor: "#ffffff",
           padding: "60px",
-          fontFamily: "monospace",
+          fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", color: "#4ade80", fontSize: 28, opacity: 0.8 }}>
-          &gt; MCPCheckup_
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <div
+            style={{
+              display: "flex",
+              width: 36,
+              height: 36,
+              borderRadius: "8px",
+              backgroundColor: "#ea580c",
+            }}
+          />
+          <div style={{ display: "flex", color: "#0f172a", fontSize: 32, fontWeight: 700 }}>
+            MCPCheckup
+          </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
@@ -98,7 +109,7 @@ export async function GET(request: Request) {
             {grade}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            <div style={{ display: "flex", color: "#ffffff", fontSize: 38, fontWeight: 700 }}>
+            <div style={{ display: "flex", color: "#0f172a", fontSize: 38, fontWeight: 700 }}>
               {host}
             </div>
             <div style={{ display: "flex", color, fontSize: 28 }}>
@@ -119,7 +130,7 @@ export async function GET(request: Request) {
           )}
         </div>
 
-        <div style={{ display: "flex", color: "#4ade80", fontSize: 22, opacity: 0.5 }}>
+        <div style={{ display: "flex", color: "#64748b", fontSize: 22 }}>
           mcpcheckup.xyz &mdash; scan any remote MCP server
         </div>
       </div>

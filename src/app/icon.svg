@@ -1,19 +1,8 @@
 <svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-  </defs>
+  <rect width="256" height="256" rx="48" fill="#0f172a" />
 
-  <rect width="256" height="256" rx="28" fill="#000000" />
-  <rect x="2" y="2" width="252" height="252" rx="26" fill="none" stroke="#1a4d1a" stroke-width="2" />
-
-  <!-- radar grid: 4 axes (security / reliability / ergonomics / governance), top/right/bottom/left -->
-  <g stroke="#39ff1433" stroke-width="1.5">
+  <!-- radar grid: 4 axes (security / reliability / ergonomics / governance) -->
+  <g stroke="#334155" stroke-width="2">
     <polygon points="128,68 188,128 128,188 68,128" fill="none" />
     <polygon points="128,98 158,128 128,158 98,128" fill="none" />
     <line x1="128" y1="128" x2="128" y2="68" />
@@ -25,27 +14,15 @@
   <!-- score polygon: asymmetric on purpose, like a real scan result -->
   <polygon
     points="128,78 173,128 128,178 88,128"
-    fill="#39ff1422"
-    stroke="#39ff14"
-    stroke-width="4"
-    filter="url(#glow)"
+    fill="#ea580c33"
+    stroke="#ea580c"
+    stroke-width="6"
+    stroke-linejoin="round"
   />
 
   <!-- axis tick dots -->
-  <circle cx="128" cy="78" r="5" fill="#39ff14" filter="url(#glow)" />
-  <circle cx="173" cy="128" r="5" fill="#ff8c00" filter="url(#glow)" />
-  <circle cx="128" cy="178" r="5" fill="#39ff14" filter="url(#glow)" />
-  <circle cx="88" cy="128" r="5" fill="#39ff14" filter="url(#glow)" />
-
-  <!-- terminal prompt accent -->
-  <text
-    x="128"
-    y="232"
-    font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
-    font-size="22"
-    font-weight="700"
-    fill="#39ff14"
-    text-anchor="middle"
-    filter="url(#glow)"
-  >&gt;_</text>
+  <circle cx="128" cy="78" r="7" fill="#ea580c" />
+  <circle cx="173" cy="128" r="7" fill="#ea580c" />
+  <circle cx="128" cy="178" r="7" fill="#ea580c" />
+  <circle cx="88" cy="128" r="7" fill="#ea580c" />
 </svg>
