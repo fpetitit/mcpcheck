@@ -129,7 +129,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
               <span className="flex flex-wrap items-baseline gap-1.5 text-xs">
                 <span className="font-mono text-slate-800">{name}</span>
                 {prop.type && <span className="text-slate-400">{prop.type}</span>}
-                {required.has(name) && <span className="text-orange-600">required</span>}
+                {required.has(name) && <span className="text-slate-500">required</span>}
               </span>
             );
             if (prop.type === "boolean") {
@@ -139,7 +139,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                     type="checkbox"
                     checked={bools[name] ?? false}
                     onChange={(e) => setBools((v) => ({ ...v, [name]: e.target.checked }))}
-                    className="accent-orange-500"
+                    className="accent-indigo-500"
                   />
                   {label}
                 </label>
@@ -152,7 +152,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                   <select
                     value={values[name] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [name]: e.target.value }))}
-                    className="rounded border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 outline-none focus:border-orange-500"
+                    className="rounded border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 outline-none focus:border-indigo-500"
                   >
                     <option value="">—</option>
                     {prop.enum.map((opt) => (
@@ -174,7 +174,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                     placeholder={`JSON ${prop.type}`}
                     value={values[name] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [name]: e.target.value }))}
-                    className="rounded border border-slate-200 bg-white px-2 py-1 font-mono text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
+                    className="rounded border border-slate-200 bg-white px-2 py-1 font-mono text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-indigo-500"
                   />
                 ) : (
                   <input
@@ -182,7 +182,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
                     placeholder={prop.description ?? ""}
                     value={values[name] ?? ""}
                     onChange={(e) => setValues((v) => ({ ...v, [name]: e.target.value }))}
-                    className="rounded border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
+                    className="rounded border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-indigo-500"
                   />
                 )}
               </label>
@@ -205,7 +205,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
             placeholder="Authorization header value, e.g. Bearer sk-…"
             value={authorization}
             onChange={(e) => setAuthorization(e.target.value)}
-            className="rounded border border-slate-200 bg-white px-2 py-1 font-mono text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
+            className="rounded border border-slate-200 bg-white px-2 py-1 font-mono text-xs text-slate-900 outline-none placeholder:text-slate-400 focus:border-indigo-500"
           />
         )}
       </div>
@@ -221,7 +221,7 @@ export function ToolRunner({ tool, target }: { tool: Tool; target: string }) {
           type="button"
           onClick={handleRunClick}
           disabled={running}
-          className="rounded border border-orange-500 px-3 py-1 text-xs font-bold text-orange-600 transition-colors hover:bg-orange-600 hover:text-white disabled:opacity-50"
+          className="rounded border border-indigo-500 px-3 py-1 text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white disabled:opacity-50"
         >
           {running ? "Running…" : !isReadOnly && confirmed ? "Confirm & run" : "Run"}
         </button>

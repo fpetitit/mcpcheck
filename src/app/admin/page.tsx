@@ -41,12 +41,12 @@ export default async function AdminPage({
             type="password"
             required
             autoFocus
-            className="rounded-lg border border-slate-200 bg-white px-4 py-2 font-mono text-sm text-slate-900 outline-none focus:border-orange-500"
+            className="rounded-lg border border-slate-200 bg-white px-4 py-2 font-mono text-sm text-slate-900 outline-none focus:border-indigo-500"
           />
-          {error && <p className="text-xs text-orange-600">Access denied.</p>}
+          {error && <p className="text-xs text-red-600">Access denied.</p>}
           <button
             type="submit"
-            className="mt-2 rounded-lg border border-orange-500 bg-white px-4 py-2 text-sm font-bold text-orange-600 transition-colors hover:bg-orange-600 hover:text-white"
+            className="mt-2 rounded-lg border border-indigo-500 bg-white px-4 py-2 text-sm font-bold text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white"
           >
             Authenticate
           </button>

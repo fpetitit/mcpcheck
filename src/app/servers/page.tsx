@@ -17,7 +17,7 @@ export default function ServersPage() {
         </p>
         <Link
           href="/"
-          className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline"
+          className="text-xs font-medium text-indigo-600 underline-offset-4 hover:underline"
         >
           &larr; back to the scanner
         </Link>
@@ -31,7 +31,7 @@ export default function ServersPage() {
           >
             <div className="flex items-start justify-between gap-2">
               <h2 className="text-base font-bold text-slate-900">{server.name}</h2>
-              <span className="rounded-lg border border-orange-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-orange-600">
+              <span className="rounded-lg border border-indigo-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-indigo-600">
                 {server.category}
               </span>
             </div>
@@ -40,7 +40,7 @@ export default function ServersPage() {
             <p className="truncate font-mono text-xs text-slate-500">{server.url}</p>
             <Link
               href={`/?url=${encodeURIComponent(server.url)}`}
-              className="mt-1 rounded-lg border border-orange-500 bg-white px-4 py-2 text-center text-xs font-bold text-orange-600 transition-colors hover:bg-orange-600 hover:text-white"
+              className="mt-1 rounded-lg border border-indigo-500 bg-white px-4 py-2 text-center text-xs font-bold text-indigo-600 transition-colors hover:bg-indigo-600 hover:text-white"
             >
               Scan this server &rarr;
             </Link>

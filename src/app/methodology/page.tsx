@@ -190,7 +190,7 @@ export default function MethodologyPage() {
           What MCPCheckup actually checks, how each finding turns into a penalty, and how the
           per-axis scores combine into the final grade.
         </p>
-        <Link href="/" className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline">
+        <Link href="/" className="text-xs font-medium text-indigo-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
@@ -220,7 +220,7 @@ export default function MethodologyPage() {
             <div key={axis.key} className="rounded-lg border border-slate-200 p-4">
               <div className="flex items-baseline justify-between gap-3">
                 <h3 className="text-sm font-bold text-slate-900">{axis.label}</h3>
-                <span className="text-xs font-bold text-orange-600">{axis.weight}</span>
+                <span className="text-xs font-bold text-indigo-600">{axis.weight}</span>
               </div>
               <p className="mt-2 text-xs leading-relaxed text-slate-500">{axis.description}</p>
             </div>
@@ -279,7 +279,7 @@ export default function MethodologyPage() {
             <div key={check.id} className="rounded-lg border border-slate-200 p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 className="text-sm font-bold text-slate-900">{check.title}</h3>
-                <span className="rounded-lg border border-orange-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-orange-600">
+                <span className="rounded-lg border border-indigo-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-indigo-600">
                   {check.axis}
                 </span>
               </div>

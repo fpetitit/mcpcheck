@@ -11,7 +11,7 @@ export default function TermsPage() {
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">
           Terms of Service
         </h1>
-        <Link href="/" className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline">
+        <Link href="/" className="text-xs font-medium text-indigo-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
@@ -62,7 +62,7 @@ export default function TermsPage() {
             The MCPCheckup source code is open source under the{" "}
             <a
               href="https://github.com/fpetitit/mcpcheck/blob/main/LICENSE"
-              className="text-orange-600 underline-offset-4 hover:underline"
+              className="text-indigo-600 underline-offset-4 hover:underline"
             >
               MIT License
             </a>
@@ -75,7 +75,7 @@ export default function TermsPage() {
           <p>
             Questions about these terms: <span className="text-slate-900">francois.petitit@gmail.com</span>.
             See also the{" "}
-            <Link href="/privacy" className="text-orange-600 underline-offset-4 hover:underline">
+            <Link href="/privacy" className="text-indigo-600 underline-offset-4 hover:underline">
               Privacy Policy
             </Link>
             .

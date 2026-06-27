@@ -11,7 +11,7 @@ export default function PrivacyPage() {
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">
           Privacy Policy
         </h1>
-        <Link href="/" className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline">
+        <Link href="/" className="text-xs font-medium text-indigo-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
           <p>
             Questions about this policy or data deletion requests:{" "}
             <span className="text-slate-900">francois.petitit@gmail.com</span>. See also the{" "}
-            <Link href="/terms" className="text-orange-600 underline-offset-4 hover:underline">
+            <Link href="/terms" className="text-indigo-600 underline-offset-4 hover:underline">
               Terms of Service
             </Link>
             .

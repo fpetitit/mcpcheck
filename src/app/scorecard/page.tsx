@@ -43,7 +43,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-white px-6 py-16 text-center">
         <p className="text-slate-600">Missing a server to score.</p>
-        <Link href="/" className="text-orange-600 underline-offset-4 hover:underline">
+        <Link href="/" className="text-indigo-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
@@ -57,8 +57,8 @@ export default async function ScorecardPage({ searchParams }: Props) {
     const message = error instanceof Error ? error.message : "Unknown error";
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-white px-6 py-16 text-center">
-        <p className="rounded-lg border border-orange-500 p-4 text-sm text-orange-600">{message}</p>
-        <Link href="/" className="text-orange-600 underline-offset-4 hover:underline">
+        <p className="rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-red-600">{message}</p>
+        <Link href="/" className="text-indigo-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>
@@ -87,7 +87,7 @@ export default async function ScorecardPage({ searchParams }: Props) {
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           MCP Scorecard
         </h1>
-        <Link href="/" className="text-xs font-medium text-orange-600 underline-offset-4 hover:underline">
+        <Link href="/" className="text-xs font-medium text-indigo-600 underline-offset-4 hover:underline">
           &larr; back to the scanner
         </Link>
       </div>

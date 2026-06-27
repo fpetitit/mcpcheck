@@ -79,7 +79,7 @@ function ToolEntry({ tool, findings, target }: { tool: Tool; findings: Finding[]
                     <span className="text-slate-400">{properties[name].type}</span>
                   )}
                   {required.has(name) && (
-                    <span className="text-orange-600">required</span>
+                    <span className="text-slate-500">required</span>
                   )}
                   {properties[name].description && (
                     <span className="text-slate-500">— {properties[name].description}</span>
@@ -150,7 +150,7 @@ export function ToolsList({
           placeholder="filter tools by name or description…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-orange-500"
+          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-indigo-500"
         />
       )}
       {filteredTools.length === 0 ? (
