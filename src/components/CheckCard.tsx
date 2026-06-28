@@ -1,5 +1,6 @@
 import type { CheckResult } from "@/lib/mcp/types";
 import { SEVERITY_BORDER_TEXT } from "@/lib/severityStyle";
+import { CHECK_WHY } from "@/lib/checks/checkInfo";
 import { StatusBadge } from "./StatusBadge";
 
 export function CheckCard({
@@ -14,6 +15,7 @@ export function CheckCard({
   // Per-tool findings are surfaced inline on each tool in the dedicated tools
   // section instead, so they're dropped here to avoid showing them twice.
   const serverLevelFindings = check.findings?.filter((f) => !f.toolName) ?? [];
+  const why = CHECK_WHY[check.id];
 
   return (
     <div className="rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -32,6 +34,13 @@ export function CheckCard({
       {expanded && (
         <div className="flex flex-col gap-4 border-t border-slate-200 px-5 py-4">
           <p className="text-sm text-slate-500">{check.summary}</p>
+
+          {why && (
+            <p className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs leading-relaxed text-slate-600">
+              <span className="font-semibold text-slate-700">Why it matters: </span>
+              {why}
+            </p>
+          )}
 
           {check.error && (
             <p className="rounded-lg border border-red-200 bg-white p-2 text-xs text-red-600">
