@@ -7,9 +7,11 @@ import type { Tool } from "@modelcontextprotocol/sdk/types.js";
 import type { ScanResult } from "@/lib/mcp/types";
 import { EXAMPLE_SERVERS } from "@/lib/exampleServers";
 import { gradeColor } from "@/lib/mcp/gradeColor";
+import { buildVerdict } from "@/lib/mcp/verdict";
 import { CheckCard } from "./CheckCard";
 import { AxisRadar } from "./AxisRadar";
 import { ToolsList } from "./ToolsList";
+import { VerdictSummary } from "./VerdictSummary";
 
 export function ScannerForm() {
   const router = useRouter();
@@ -187,6 +189,11 @@ export function ScannerForm() {
               </Link>
             </div>
           </div>
+
+          {(() => {
+            const tools = (result.checks.find((c) => c.id === "inventory")?.data?.tools ?? []) as Tool[];
+            return <VerdictSummary verdict={buildVerdict(result, tools)} />;
+          })()}
 
           <div className="flex flex-col gap-3 rounded-lg border border-dashed border-indigo-300 bg-indigo-50 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
