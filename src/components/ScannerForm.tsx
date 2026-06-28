@@ -13,6 +13,7 @@ import { AxisRadar } from "./AxisRadar";
 import { ToolsList } from "./ToolsList";
 import { VerdictSummary } from "./VerdictSummary";
 import { TopFixes } from "./TopFixes";
+import { ScanProgress } from "./ScanProgress";
 
 export function ScannerForm() {
   const router = useRouter();
@@ -167,6 +168,8 @@ export function ScannerForm() {
           {error}
         </p>
       )}
+
+      {loading && !result && <ScanProgress />}
 
       {result && (
         <div className="flex flex-col gap-4">
