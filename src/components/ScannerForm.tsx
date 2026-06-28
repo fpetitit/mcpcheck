@@ -12,6 +12,7 @@ import { CheckCard } from "./CheckCard";
 import { AxisRadar } from "./AxisRadar";
 import { ToolsList } from "./ToolsList";
 import { VerdictSummary } from "./VerdictSummary";
+import { TopFixes } from "./TopFixes";
 
 export function ScannerForm() {
   const router = useRouter();
@@ -229,6 +230,8 @@ export function ScannerForm() {
             </p>
             <AxisRadar axes={result.axes} color={gradeColor(result.grade)} />
           </div>
+
+          <TopFixes result={result} />
 
           {(() => {
             const tools = (result.checks.find((c) => c.id === "inventory")?.data?.tools ?? []) as Tool[];
